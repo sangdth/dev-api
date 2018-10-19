@@ -1,0 +1,23 @@
+{
+  "slots":
+  [
+    { "id": 1, "startTime": "2018-10-16T00:00:00.000Z", "duration": 3600000, "customer_id": 1, "booking_id": 1 },
+    { "id": 2, "startTime": "2018-10-16T01:00:00.000Z", "duration": 3600000, "customer_id": 2, "booking_id": 2 },
+    { "id": 3, "startTime": "2018-10-17T01:00:00.000Z", "duration": 3600000, "customer_id": 3, "booking_id": 3 },
+    { "id": 4, "startTime": "2018-10-17T02:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true },
+    { "id": 5, "startTime": "2018-10-18T01:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true },
+    { "id": 6, "startTime": "2018-10-18T02:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true }
+  ],
+  "bookings":
+  [
+    { "id": 1, "slot_id": 1, "customer_id": 1, "resources": [ {"id": 1}, {"id": 4 }], "status": 1 },
+    { "id": 2, "slot_id": 2, "customer_id": 2, "resources": [ {"id": 2}, {"id": 5 }], "status": 2 },
+    { "id": 3, "slot_id": 3, "customer_id": 3, "resources": [ {"id": 3}, {"id": 6 }], "status": 3 }
+  ],
+  "customers":
+  [
+    { "id": 1, "slot_id": 1, "booking_id": 1, "name": "Json Niinaa", "phone": "45612345", "email": "json.niinaa@polku.io" },
+    { "id": 2, "slot_id": 2, "booking_id": 2, "name": "Maria Bacon", "phone": "46978134", "email": "maria.bacon@polku.io" },
+    { "id": 3, "slot_id": 3, "booking_id": 3, "name": "Jack Juusto", "phone": "49867136", "email": "jack.juusto@polku.io" }
+  ]
+}
