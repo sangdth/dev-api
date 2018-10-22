@@ -93,23 +93,14 @@ function listEvents(client) {
     const events = res.data.items;
     if (events.length) {
       console.log('Upcoming 20 events:');
-      events.map((event, i) => {
+      events.map((event) => {
         const start = event.start.dateTime || event.start.date;
         console.log(`${start} - ${event.summary}`);
-        // console.log(JSON.stringify(event));
       });
     } else {
       console.log('No upcoming events found.');
     }
-    // try to run the watching right after listing
-    // to make sure I have authed creds :D
-
-    // appRes.status(200).send({ events });
   });
-}
-
-function compareWithSlots() {
-
 }
 
 module.exports.hook = (req, res) => {
@@ -117,7 +108,8 @@ module.exports.hook = (req, res) => {
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
   resourceId = req.headers['x-goog-resource-id'];
-  console.log('received signal from Google, listen on channel ID: ', req.headers['x-goog-channel-id']);
+  console.log('received signal from Google');
+  console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
   console.log('and resource ID is:', req.headers['x-goog-resource-id']);
   // listEvents(auth);
 };
@@ -127,7 +119,7 @@ module.exports.hook = (req, res) => {
  * after that, we must regenerate new id
  * also we need to store the id in order to close this channel in future
  */
-module.exports.createChannel = (id) => {
+module.exports.createChannel = (id, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.watch({ // post method
     auth,
@@ -137,32 +129,29 @@ module.exports.createChannel = (id) => {
       type: 'web_hook',
       address: `https://super.eu.ngrok.io/notifications?id=${id}`,
     },
-  }, (error, response) => {
-    if (error) console.log('error after create', error.message);
-
-    console.log('create successfully');
+  }, (error, result) => {
+    if (error) throw error;
+    callback(result);
   });
 };
 
 /**
  * Close a watch channel
+ * Note that we get resource ID (required) from the hook.
+ * There are two way to get it: In headers request comes from Google API
+ * or we can store it into our localStorage, database etc.
  */
-module.exports.closeChannel = (channelId) => {
-  console.log('start closing channel ID: ', channelId);
-  console.log('with resourceId', resourceId);
+module.exports.closeChannel = (channelId, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.channels.stop({ // post method
     auth,
-    // calendarId: 'primary',
     resource: {
       id: channelId,
       resourceId,
     },
-  }, (error, response) => {
-    if (error) {
-      console.log('can not close', error);
-    }
-    console.log('close successful');
+  }, (error, result) => {
+    if (error) throw error;
+    callback(result);
   });
 };
 
