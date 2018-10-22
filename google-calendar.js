@@ -115,8 +115,8 @@ module.exports.hook = (req, res, callback) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
-  console.log('received notification from Google, start listing events');
-  console.log(req.headers);
+  console.log('received notification from Google, start listing events on channel ID: ');
+  console.log(req.headers['x-goog-channel-id']);
   // listEvents(auth);
 };
 
@@ -131,7 +131,7 @@ module.exports.createChannel = (id) => {
     auth,
     calendarId: 'primary',
     resource: {
-      id: id,
+      id,
       type: 'web_hook',
       address: `https://super.eu.ngrok.io/notifications?id=${id}`,
     },
@@ -145,21 +145,21 @@ module.exports.createChannel = (id) => {
  * Close a watch channel
  */
 module.exports.closeChannel = (channelId, resourceId) => {
-  console.log('start running close channel');
+  console.log('start closing channel ID: ', channelId);
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.channels.stop({ // post method
     auth,
     calendarId: 'primary',
     resource: {
       id: channelId,
-      channelId: channelId,
-      resourceId, resourceId,
+      channelId,
+      resourceId,
     },
   }, (error, response) => {
     if (error) {
-      console.log(error);
+      console.log('can not close', error.message);
     }
-    console.log(response.status);
+    console.log('close successful');
   });
 };
 

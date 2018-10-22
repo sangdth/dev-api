@@ -22,7 +22,7 @@ server.post('/notifications', (req, res) => {
     console.log(req);
 
     if (data) {
-      res.status(data.status).send({ data: data });
+      res.status(data.status).send({ data });
     }
   });
 });
@@ -32,7 +32,7 @@ server.post('/channels/create', (req, res) => {
   googleCalendar.createChannel(req.body.id);
 });
 
-server.get('/channels/close/:id', (req, res) => {
+server.delete('/channels/close/:id', (req, res) => {
   googleCalendar.closeChannel(
     req.params.id,
     req.headers['x-goog-resource-id'],
