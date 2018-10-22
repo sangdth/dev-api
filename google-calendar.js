@@ -103,7 +103,7 @@ function listEvents(client) {
   });
 }
 
-module.exports.hook = (req, res) => {
+module.exports.hook = (req, callback) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
@@ -111,6 +111,10 @@ module.exports.hook = (req, res) => {
   console.log('received signal from Google');
   console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
   console.log('and resource ID is:', req.headers['x-goog-resource-id']);
+  callback({
+    status: 200,
+    data: req.headers,
+  });
   // listEvents(auth);
 };
 
@@ -127,11 +131,12 @@ module.exports.createChannel = (id, callback) => {
     resource: {
       id,
       type: 'web_hook',
+      token: 'token' + id,
       address: `https://super.eu.ngrok.io/notifications?id=${id}`,
     },
   }, (error, result) => {
     if (error) throw error;
-    callback(result);
+    if (result) callback(result);
   });
 };
 
@@ -141,17 +146,18 @@ module.exports.createChannel = (id, callback) => {
  * There are two way to get it: In headers request comes from Google API
  * or we can store it into our localStorage, database etc.
  */
-module.exports.closeChannel = (channelId, callback) => {
+module.exports.closeChannel = (id, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
-  calendar.channels.stop({ // post method
+  calendar.channels.stop({
     auth,
     resource: {
-      id: channelId,
+      id,
       resourceId,
+      token: 'token' + id,
     },
   }, (error, result) => {
     if (error) throw error;
-    callback(result);
+    if (result) callback('Close successfully!');
   });
 };
 

@@ -18,13 +18,12 @@ server.get('/trigger', (req, res) => {
 // Need to call custom route before server.use(router)
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
-  googleCalendar.hook(req, res, (error, data) => {
-    // if (error) throw error;
-    console.log(req);
-
-    if (data) {
-      res.status(data.status).send({ data });
-    }
+  googleCalendar.hook(req, (result) => {
+    res.status(result.status).send({
+      success: true,
+      message: 'Received and processed successfully!',
+      data: result.data,
+    });
   });
 });
 
