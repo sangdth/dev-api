@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
+
 let auth;
 
 // If modifying these scopes, delete token.json.
@@ -17,6 +18,7 @@ fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Calendar API.
   authorize(JSON.parse(content), listEvents);
+  // authorize(JSON.parse(content), pushNotifications);
 });
 
 /**
@@ -25,6 +27,7 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
+
 function authorize(credentials, callback) {
   const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
@@ -34,6 +37,7 @@ function authorize(credentials, callback) {
     if (err) return getAccessToken(oAuth2Client, callback);
     oAuth2Client.setCredentials(JSON.parse(token));
     auth = oAuth2Client;
+    console.log('authorize always run');
     callback(oAuth2Client);
   });
 }
@@ -66,43 +70,6 @@ function getAccessToken(oAuth2Client, callback) {
       });
       callback(oAuth2Client);
     });
-  });
-}
-
-
-/**
- * Try to watch a collection of events
- */
-function pushNotifications(auth) {
-  console.log('start pushNotifications function');
-  //const appRes = res;
-  const calendar = google.calendar({ version: 'v3', auth });
-  calendar.events.watch({ // post method
-    auth,
-    calendarId: 'primary',
-    resource: {
-      id: '012234-89ab-cdef-0123456123ab',
-      type: 'web_hook',
-      address: 'https://polku.eu.ngrok.io/notifications',
-    },
-  }, (err, res) => {
-    console.log('run the events.watch');
-    // console.log(err);
-    // if (err) return console.log(`The API returned an error: ${err}`);
-    // const events = res.data.items;
-    /*
-    if (events.length) {
-      console.log('Upcoming 20 events:');
-      events.map((event, i) => {
-        const start = event.start.dateTime || event.start.date;
-        console.log(`${start} - ${event.summary}`);
-        console.log(JSON.stringify(event));
-      });
-    } else {
-      console.log('No upcoming events found.');
-    }
-    */
-    //appRes.status(200).send('pushNotifications run ok');
   });
 }
 
@@ -140,17 +107,59 @@ function listEvents(client) {
   });
 }
 
-pushNotifications(auth);
+function compareWithSlots() {
 
-module.exports.trigger = (req, res) => {
+}
 
-  res.send(200);
+module.exports.hook = (req, res, callback) => {
+  // from here we can do something, let's say anytime google push us notification,
+  // we try to list all current events
+  // everything userful from Google API is sent in req.headers
+  console.log('received notification from Google, start listing events');
+  console.log(req.headers);
+  // listEvents(auth);
 };
 
+/**
+ * Try to watch a collection of events this should run only once
+ * after that, we must regenerate new id
+ * also we need to store the id in order to close this channel in future
+ */
+module.exports.createChannel = (id) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+  calendar.events.watch({ // post method
+    auth,
+    calendarId: 'primary',
+    resource: {
+      id: id,
+      type: 'web_hook',
+      address: `https://super.eu.ngrok.io/notifications?id=${id}`,
+    },
+  }, (error, response) => {
+    if (error) console.log('error after create', error.message);
+    console.log(response);
+  });
+};
 
-module.exports.hook = (req, res) => {
-  console.log('reveived push');
-  listEvents(auth);
-  // console.log(req);
+/**
+ * Close a watch channel
+ */
+module.exports.closeChannel = (channelId, resourceId) => {
+  console.log('start running close channel');
+  const calendar = google.calendar({ version: 'v3', auth });
+  calendar.channels.stop({ // post method
+    auth,
+    calendarId: 'primary',
+    resource: {
+      id: channelId,
+      channelId: channelId,
+      resourceId, resourceId,
+    },
+  }, (error, response) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(response.status);
+  });
 };
 

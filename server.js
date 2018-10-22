@@ -17,13 +17,26 @@ server.get('/trigger', (req, res) => {
 
 // Need to call custom route before server.use(router)
 server.post('/notifications', (req, res) => {
-  // console.log('post notification', req.body)
-  googleCalendar.hook(req, res);
-  /*
-  update('/slots', find event_id with slot_id) time user info
-  can not find, create new slot
-  */
-  //res.status(200).send({ data: 'test successfully' });
+  googleCalendar.hook(req, res, (error, data) => {
+    // if (error) throw error;
+    console.log(req);
+
+    if (data) {
+      res.status(data.status).send({ data: data });
+    }
+  });
+});
+
+server.post('/channels/create', (req, res) => {
+  // console.log(req.params);
+  googleCalendar.createChannel(req.body.id);
+});
+
+server.get('/channels/close/:id', (req, res) => {
+  googleCalendar.closeChannel(
+    req.params.id,
+    req.headers['x-goog-resource-id'],
+  );
 });
 
 server.use(router);
