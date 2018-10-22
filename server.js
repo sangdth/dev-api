@@ -18,6 +18,12 @@ server.get('/trigger', (req, res) => {
 // Need to call custom route before server.use(router)
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
+  const db = router.db;
+  const allSlots = db.get('slots').value();
+  console.log('all slots', allSlots);
+
+  // after this the hook() can use allSlots to compare
+  // with list events
   googleCalendar.hook(req, (result) => {
     res.status(result.status).send({
       success: true,
