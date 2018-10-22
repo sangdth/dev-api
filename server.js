@@ -16,6 +16,7 @@ server.get('/trigger', (req, res) => {
 });
 
 // Need to call custom route before server.use(router)
+// req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
   googleCalendar.hook(req, res, (error, data) => {
     // if (error) throw error;
@@ -27,16 +28,16 @@ server.post('/notifications', (req, res) => {
   });
 });
 
+/**
+ * req below is come from user(postman, vue front end etc
+ * it is not the same with hook
+ */
 server.post('/channels/create', (req, res) => {
-  // console.log(req.params);
   googleCalendar.createChannel(req.body.id);
 });
 
 server.delete('/channels/close/:id', (req, res) => {
-  googleCalendar.closeChannel(
-    req.params.id,
-    req.headers['x-goog-resource-id'],
-  );
+  googleCalendar.closeChannel(req.params.id);
 });
 
 server.use(router);

@@ -3,6 +3,7 @@ const readline = require('readline');
 const { google } = require('googleapis');
 
 let auth;
+let resourceId = '';
 
 // If modifying these scopes, delete token.json.
 const SCOPES = [
@@ -111,12 +112,13 @@ function compareWithSlots() {
 
 }
 
-module.exports.hook = (req, res, callback) => {
+module.exports.hook = (req, res) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
-  console.log('received notification from Google, start listing events on channel ID: ');
-  console.log(req.headers['x-goog-channel-id']);
+  resourceId = req.headers['x-goog-resource-id'];
+  console.log('received signal from Google, listen on channel ID: ', req.headers['x-goog-channel-id']);
+  console.log('and resource ID is:', req.headers['x-goog-resource-id']);
   // listEvents(auth);
 };
 
@@ -137,27 +139,28 @@ module.exports.createChannel = (id) => {
     },
   }, (error, response) => {
     if (error) console.log('error after create', error.message);
-    console.log(response);
+
+    console.log('create successfully');
   });
 };
 
 /**
  * Close a watch channel
  */
-module.exports.closeChannel = (channelId, resourceId) => {
+module.exports.closeChannel = (channelId) => {
   console.log('start closing channel ID: ', channelId);
+  console.log('with resourceId', resourceId);
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.channels.stop({ // post method
     auth,
-    calendarId: 'primary',
+    // calendarId: 'primary',
     resource: {
       id: channelId,
-      channelId,
       resourceId,
     },
   }, (error, response) => {
     if (error) {
-      console.log('can not close', error.message);
+      console.log('can not close', error);
     }
     console.log('close successful');
   });
