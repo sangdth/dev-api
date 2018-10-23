@@ -3,6 +3,7 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const googleCalendar = require('./google-calendar.js');
+const Zet = require('zet');
 
 const db = router.db;
 
@@ -11,21 +12,33 @@ server.use(jsonServer.bodyParser);
 
 server.use(middlewares);
 
+
+server.post('/slots', (req, res) => {
+
+  googleCalendar.createEvent(req.body, (result) => {
+    const created = db.get('slots').push(result).write();
+
+    res.status(200).send({
+      success: true,
+      message: 'created successfully',
+    });
+  });
+});
+
 server.put('/slots/:id', (req, res) => {
   const edited = db.get('slots')
     .find({ id: req.params.id })
     .assign(req.body)
     .value();
 
-  console.log(edited);
   googleCalendar.updateEvent(edited, (result) => {
-    // console.log('result after update in server.js', result);
+    res.status(200).send({
+      success: true,
+      message: edited,
+      data: result,
+    });
   });
 
-  res.status(200).send({
-    success: true,
-    message: edited,
-  });
 });
 
 // Need to call custom route before server.use(router)
@@ -37,13 +50,32 @@ server.post('/notifications', (req, res) => {
   // after this the hook() can use allSlots to compare
   // with list events
   googleCalendar.hook(req, (events) => {
-    for (let i = 0, l = events.length; i < l; i++) {
-      if (allSlots.find(slot => slot.id === events[i].id)) {
-        db.get('slots').find({ id: events[i].id }).assign(events[i]).write();
-      } else {
-        db.get('slots').push(events[i]).write();
+    const zetSlots = new Zet(allSlots.map(s => s.id));
+    const zetEvents = new Zet(events.map(e => e.id));
+
+    // events in local, but not in GC
+    const localItems = Array.from(zetSlots.difference(zetEvents));
+
+    // events on GC, but on in local
+    const remoteItems = Array.from(zetEvents.difference(zetSlots));
+
+    console.log(localItems, remoteItems);
+    // download from GC to local
+    // right now I just download directly, in future we need to 
+    // run createSlot() with slot details
+    if (remoteItems.length > 0) {
+      for (let i = 0, l = remoteItems.length; i < l; i++) {
+        console.log('Found new event, add to database');
+        const foundIndex = events.findIndex(e => e.id === remoteItems[i]);
+        db.get('slots').push(events[foundIndex]).write();
       }
     }
+
+    // in case admin delete the remote event, there is no way to prevent it,
+    // we have to use the localItems to create new events
+    // then, remember, we can not use local id, so after create new event on GC
+    // we need to delete all localItems with old id, and download the 
+    // re-created events from GC.
   });
 });
 
@@ -66,8 +98,7 @@ server.delete('/channels/close/:id', (req, res) => {
   googleCalendar.closeChannel(req.params.id, (result) => {
     res.status(200).send({
       success: true,
-      message: 'Channel closed successfully',
-      data: result,
+      message: result,
     });
   });
 });

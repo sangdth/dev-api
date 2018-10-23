@@ -104,12 +104,9 @@ function listEvents(client) {
 }
 
 /**
- * Lists the next 20 events on the user's primary calendar.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ * This is where GC send back data and we use it to keep our 
+ * database up to date with GC.
  */
-function updateEvent(event, callback) {
-}
-
 module.exports.hook = (req, callback) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
@@ -124,10 +121,34 @@ module.exports.hook = (req, callback) => {
   // listEvents(auth);
 };
 
-module.exports.updateEvent = (editedEvent, callback) => {
-  // first need to get all events, then find by id
+/**
+ * Create new event into GC if we create new slots.
+ */
+module.exports.createEvent = (newEvent, callback) => {
   listEvents(auth);
+  const calendar = google.calendar({ version: 'v3', auth });
 
+  calendar.events.insert({
+    calendarId: 'primary',
+    resource: {
+      summary: newEvent.summary,
+      start: newEvent.start,
+      end: newEvent.end,
+      colorId: newEvent.colorId,
+    },
+  }, (err, res) => {
+    if (err) return err;
+    // res will be the created event
+    callback(res.data);
+  });
+};
+
+
+/**
+ * We update the event in GC everytime we change something in our database.
+ */
+module.exports.updateEvent = (editedEvent, callback) => {
+  listEvents(auth);
   const calendar = google.calendar({ version: 'v3', auth });
 
   calendar.events.update({
@@ -137,11 +158,12 @@ module.exports.updateEvent = (editedEvent, callback) => {
       summary: editedEvent.summary,
       start: editedEvent.start,
       end: editedEvent.end,
+      colorId: editedEvent.colorId,
     },
   }, (err, res) => {
     if (err) return err;
     // res will be the updated event
-    callback(res);
+    callback(res.data);
   });
 };
 
@@ -153,7 +175,7 @@ module.exports.updateEvent = (editedEvent, callback) => {
 module.exports.createChannel = (id, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.watch({ // post method
-    auth,
+    // auth,
     calendarId: 'primary',
     resource: {
       id,
