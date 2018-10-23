@@ -2,10 +2,12 @@ const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
-const googleCalendar = require('./google-calendar.js');
+const gcCalendars = require('./gc-calendars.js');
+const gcEvents = require('./gc-events.js');
 const Zet = require('zet');
 
 const db = router.db;
+const slotCalendarId = 'cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com';
 
 // it is recommended to use the bodyParser middleware before any other middleware in your application
 server.use(jsonServer.bodyParser);
@@ -15,7 +17,7 @@ server.use(middlewares);
 
 server.post('/slots', (req, res) => {
 
-  googleCalendar.createEvent(req.body, (result) => {
+  gcEvents.createEvent(req.body, (result) => {
     const created = db.get('slots').push(result).write();
 
     res.status(200).send({
@@ -31,7 +33,7 @@ server.put('/slots/:id', (req, res) => {
     .assign(req.body)
     .value();
 
-  googleCalendar.updateEvent(edited, (result) => {
+  gcEvents.updateEvent(edited, (result) => {
     res.status(200).send({
       success: true,
       message: edited,
@@ -49,34 +51,44 @@ server.post('/notifications', (req, res) => {
 
   // after this the hook() can use allSlots to compare
   // with list events
-  googleCalendar.hook(req, (events) => {
-    const zetSlots = new Zet(allSlots.map(s => s.id));
-    const zetEvents = new Zet(events.map(e => e.id));
+  if (req.query.calendar === slotCalendarId) {
+    gcEvents.hook(req, (events) => {
+      const zetSlots = new Zet(allSlots.map(s => s.id));
+      const zetEvents = new Zet(events.map(e => e.id));
 
-    // events in local, but not in GC
-    const localItems = Array.from(zetSlots.difference(zetEvents));
+      // events in local, but not in GC
+      const localItems = Array.from(zetSlots.difference(zetEvents));
 
-    // events on GC, but on in local
-    const remoteItems = Array.from(zetEvents.difference(zetSlots));
+      // events on GC, but on in local
+      const remoteItems = Array.from(zetEvents.difference(zetSlots));
 
-    console.log(localItems, remoteItems);
-    // download from GC to local
-    // right now I just download directly, in future we need to 
-    // run createSlot() with slot details
-    if (remoteItems.length > 0) {
-      for (let i = 0, l = remoteItems.length; i < l; i++) {
-        console.log('Found new event, add to database');
-        const foundIndex = events.findIndex(e => e.id === remoteItems[i]);
-        db.get('slots').push(events[foundIndex]).write();
+      // console.log(localItems, remoteItems);
+      // download from GC to local
+      // right now I just download directly, in future we need to 
+      // run createSlot() with slot details
+      if (remoteItems.length > 0) {
+        for (let i = 0, l = remoteItems.length; i < l; i++) {
+          console.log('Found new event, add to database');
+          const foundIndex = events.findIndex(e => e.id === remoteItems[i]);
+          db.get('slots').push(events[foundIndex]).write();
+        }
       }
-    }
 
-    // in case admin delete the remote event, there is no way to prevent it,
-    // we have to use the localItems to create new events
-    // then, remember, we can not use local id, so after create new event on GC
-    // we need to delete all localItems with old id, and download the 
-    // re-created events from GC.
-  });
+      // in case admin delete the remote event, there is no way to prevent it,
+      // we have to use the localItems to create new events
+      // then, remember, we can not use local id, so after create new event on GC
+      // we need to delete all localItems with old id, and download the 
+      // re-created events from GC.
+    });
+  }
+
+  if (req.query.calendar === 'sang.dang@polku.io') {
+    console.log('primary calendar changed');
+    gcCalendars.hook(req, (calendars) => {
+      console.log('calendars hook run');
+      // from here we can get events from slot
+    });
+  }
 });
 
 /**
@@ -84,7 +96,7 @@ server.post('/notifications', (req, res) => {
  * it is not the same with hook
  */
 server.post('/channels/create', (req, res) => {
-  googleCalendar.createChannel(req.body.id, (result) => {
+  gcEvents.createChannel(req.body, (result) => {
     res.status(result.status).send({
       success: true,
       message: `Channel id ${req.body.id} was created successfully.`,
@@ -95,7 +107,7 @@ server.post('/channels/create', (req, res) => {
 
 // closeChannel return empty result if successful
 server.delete('/channels/close/:id', (req, res) => {
-  googleCalendar.closeChannel(req.params.id, (result) => {
+  gcEvents.closeChannel(req.params.id, (result) => {
     res.status(200).send({
       success: true,
       message: result,

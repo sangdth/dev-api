@@ -1,10 +1,13 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
+const slotCalendarId = 'cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com';
 
 let auth;
 let resourceId = '';
+let channelToken = '';
 let events = [];
+let slotEvents = [];
 
 // If modifying these scopes, delete token.json.
 const SCOPES = [
@@ -103,6 +106,28 @@ function listEvents(client) {
   });
 }
 
+function listEventsByCalendar(calendarId) {
+  const calendar = google.calendar({ version: 'v3', auth });
+  calendar.events.list({
+    calendarId,
+    timeMin: (new Date()).toISOString(),
+    maxResults: 20,
+    singleEvents: true,
+    orderBy: 'startTime',
+  }, (err, res) => {
+    // if (err) return console.log(`The API returned an error: ${err}`);
+    slotEvents = res.data.items;
+    if (slotEvents.length) {
+      console.log('Upcoming 20 events:');
+      slotEvents.map((event) => {
+        const start = event.start.dateTime || event.start.date;
+        console.log(`${start} - ${event.summary}`);
+      });
+    } else {
+      console.log('No upcoming events found.');
+    }
+  });
+}
 /**
  * This is where GC send back data and we use it to keep our 
  * database up to date with GC.
@@ -112,11 +137,12 @@ module.exports.hook = (req, callback) => {
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
   resourceId = req.headers['x-goog-resource-id'];
+  channelToken = req.headers['x-goog-channel-token'];
   console.log('received signal from Google');
   console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
-  console.log('and resource ID is:', req.headers['x-goog-resource-id']);
+  // console.log('and resource ID is:', req.headers['x-goog-resource-id']);
 
-  listEvents(auth);
+  listEventsByCalendar(req.query.calendar);
   callback(events);
   // listEvents(auth);
 };
@@ -129,7 +155,8 @@ module.exports.createEvent = (newEvent, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
 
   calendar.events.insert({
-    calendarId: 'primary',
+    // calendarId: 'primary',
+    calendarId: slotCalendarId,
     resource: {
       summary: newEvent.summary,
       start: newEvent.start,
@@ -152,7 +179,8 @@ module.exports.updateEvent = (editedEvent, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
 
   calendar.events.update({
-    calendarId: 'primary',
+    // calendarId: 'primary',
+    calendarId: slotCalendarId,
     eventId: editedEvent.id,
     resource: {
       summary: editedEvent.summary,
@@ -172,20 +200,21 @@ module.exports.updateEvent = (editedEvent, callback) => {
  * after that, we must regenerate new id
  * also we need to store the id in order to close this channel in future
  */
-module.exports.createChannel = (id, callback) => {
+module.exports.createChannel = (data, callback) => {
+  console.log('data in createChannel', data);
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.watch({ // post method
     // auth,
-    calendarId: 'primary',
+    calendarId: data.calendarId,
     resource: {
-      id,
+      id: data.channelId,
       type: 'web_hook',
-      token: 'token' + id,
-      address: `https://super.eu.ngrok.io/notifications?id=${id}`,
+      token: 'polku-token-' + data.channelId,
+      address: `https://super.eu.ngrok.io/notifications?channel=${data.channelId}&calendar=${data.calendarId}`,
     },
-  }, (error, result) => {
+  }, (error, res) => {
     if (error) throw error;
-    if (result) callback(result);
+    if (res) callback(res);
   });
 };
 
@@ -202,7 +231,7 @@ module.exports.closeChannel = (id, callback) => {
     resource: {
       id,
       resourceId,
-      token: 'token' + id,
+      token: channelToken,
     },
   }, (error, result) => {
     if (error) throw error;
