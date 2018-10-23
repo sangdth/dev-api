@@ -4,32 +4,46 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const googleCalendar = require('./google-calendar.js');
 
+const db = router.db;
+
 // it is recommended to use the bodyParser middleware before any other middleware in your application
 server.use(jsonServer.bodyParser);
 
 server.use(middlewares);
 
-// Need to call custom route before server.use(router)
-server.get('/trigger', (req, res) => {
-  googleCalendar.trigger(req, res);
-  //res.status(200).send({ data: 'test successfully' });
+server.put('/slots/:id', (req, res) => {
+  const edited = db.get('slots')
+    .find({ id: req.params.id })
+    .assign(req.body)
+    .value();
+
+  console.log(edited);
+  googleCalendar.updateEvent(edited, (result) => {
+    // console.log('result after update in server.js', result);
+  });
+
+  res.status(200).send({
+    success: true,
+    message: edited,
+  });
 });
 
 // Need to call custom route before server.use(router)
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
-  const db = router.db;
   const allSlots = db.get('slots').value();
-  console.log('all slots', allSlots);
+  // console.log('all slots', allSlots);
 
   // after this the hook() can use allSlots to compare
   // with list events
-  googleCalendar.hook(req, (result) => {
-    res.status(result.status).send({
-      success: true,
-      message: 'Received and processed successfully!',
-      data: result.data,
-    });
+  googleCalendar.hook(req, (events) => {
+    for (let i = 0, l = events.length; i < l; i++) {
+      if (allSlots.find(slot => slot.id === events[i].id)) {
+        db.get('slots').find({ id: events[i].id }).assign(events[i]).write();
+      } else {
+        db.get('slots').push(events[i]).write();
+      }
+    }
   });
 });
 

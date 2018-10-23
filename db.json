@@ -1,23 +1,255 @@
 {
-  "slots":
-  [
-    { "id": 1, "startTime": "2018-10-16T00:00:00.000Z", "duration": 3600000, "customer_id": 1, "booking_id": 1 },
-    { "id": 2, "startTime": "2018-10-16T01:00:00.000Z", "duration": 3600000, "customer_id": 2, "booking_id": 2 },
-    { "id": 3, "startTime": "2018-10-17T01:00:00.000Z", "duration": 3600000, "customer_id": 3, "booking_id": 3 },
-    { "id": 4, "startTime": "2018-10-17T02:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true },
-    { "id": 5, "startTime": "2018-10-18T01:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true },
-    { "id": 6, "startTime": "2018-10-18T02:00:00.000Z", "duration": 3600000, "customer_id": null, "booking_id": null, "free": true }
+  "slots": [
+    {
+      "id": 1,
+      "startTime": "2018-10-16T00:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": 1,
+      "booking_id": 1
+    },
+    {
+      "id": 2,
+      "startTime": "2018-10-16T01:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": 2,
+      "booking_id": 2
+    },
+    {
+      "id": 3,
+      "startTime": "2018-10-17T01:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": 3,
+      "booking_id": 3
+    },
+    {
+      "id": 4,
+      "startTime": "2018-10-17T02:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": null,
+      "booking_id": null,
+      "free": true
+    },
+    {
+      "id": 5,
+      "startTime": "2018-10-18T01:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": null,
+      "booking_id": null,
+      "free": true
+    },
+    {
+      "id": 6,
+      "startTime": "2018-10-18T02:00:00.000Z",
+      "duration": 3600000,
+      "customer_id": null,
+      "booking_id": null,
+      "free": true
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080542962434000\"",
+      "id": "5jelh9arg125tntl5ae48r2rqg",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=NWplbGg5YXJnMTI1dG50bDVhZTQ4cjJycWcgc2FuZy5kYW5nQHBvbGt1Lmlv",
+      "created": "2018-10-22T08:19:14.000Z",
+      "updated": "2018-10-23T05:11:21.217Z",
+      "summary": "Viet pick Arto up by Lamborghini Gallardor",
+      "creator": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "organizer": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-24T09:00:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-24T10:30:00+03:00"
+      },
+      "iCalUID": "5jelh9arg125tntl5ae48r2rqg@google.com",
+      "sequence": 91,
+      "extendedProperties": {
+        "private": {
+          "everyoneDeclinedDismissed": "-1"
+        }
+      },
+      "reminders": {
+        "useDefault": true
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080558849934000\"",
+      "id": "0d4hekcq90i4aqtd0g81e9ju25",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=MGQ0aGVrY3E5MGk0YXF0ZDBnODFlOWp1MjUgc2FuZy5kYW5nQHBvbGt1Lmlv",
+      "created": "2018-10-22T17:15:02.000Z",
+      "updated": "2018-10-23T07:23:44.967Z",
+      "summary": "Lam will pick Mikko up by truck, with a duck, then go find Hulk",
+      "creator": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "organizer": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-24T11:45:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-24T13:15:00+03:00"
+      },
+      "iCalUID": "0d4hekcq90i4aqtd0g81e9ju25@google.com",
+      "sequence": 30,
+      "extendedProperties": {
+        "private": {
+          "everyoneDeclinedDismissed": "-1"
+        }
+      },
+      "reminders": {
+        "useDefault": true
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080549786450000\"",
+      "id": "5hllnindqeairdhveg0qsvgll6",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=NWhsbG5pbmRxZWFpcmRodmVnMHFzdmdsbDYgc2FuZy5kYW5nQHBvbGt1Lmlv",
+      "created": "2018-10-22T06:29:03.000Z",
+      "updated": "2018-10-23T06:08:13.225Z",
+      "summary": "Slav drives horse, with topless, and cowboy hat",
+      "creator": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "organizer": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-24T16:45:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-24T18:30:00+03:00"
+      },
+      "iCalUID": "5hllnindqeairdhveg0qsvgll6@google.com",
+      "sequence": 80,
+      "extendedProperties": {
+        "private": {
+          "everyoneDeclinedDismissed": "-1"
+        }
+      },
+      "reminders": {
+        "useDefault": true
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080550320304000\"",
+      "id": "63k9d9smierj20rsm44b7po3n6",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=NjNrOWQ5c21pZXJqMjByc200NGI3cG8zbjYgc2FuZy5kYW5nQHBvbGt1Lmlv",
+      "created": "2018-10-23T06:12:40.000Z",
+      "updated": "2018-10-23T06:12:40.152Z",
+      "summary": "Test Add New Event",
+      "creator": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "organizer": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-24T15:00:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-24T16:00:00+03:00"
+      },
+      "iCalUID": "63k9d9smierj20rsm44b7po3n6@google.com",
+      "sequence": 0,
+      "extendedProperties": {
+        "private": {
+          "everyoneDeclinedDismissed": "-1"
+        }
+      },
+      "reminders": {
+        "useDefault": true
+      }
+    }
   ],
-  "bookings":
-  [
-    { "id": 1, "slot_id": 1, "customer_id": 1, "resources": [ {"id": 1}, {"id": 4 }], "status": 1 },
-    { "id": 2, "slot_id": 2, "customer_id": 2, "resources": [ {"id": 2}, {"id": 5 }], "status": 2 },
-    { "id": 3, "slot_id": 3, "customer_id": 3, "resources": [ {"id": 3}, {"id": 6 }], "status": 3 }
+  "bookings": [
+    {
+      "id": 1,
+      "slot_id": 1,
+      "customer_id": 1,
+      "resources": [
+        {
+          "id": 1
+        },
+        {
+          "id": 4
+        }
+      ],
+      "status": 1
+    },
+    {
+      "id": 2,
+      "slot_id": 2,
+      "customer_id": 2,
+      "resources": [
+        {
+          "id": 2
+        },
+        {
+          "id": 5
+        }
+      ],
+      "status": 2
+    },
+    {
+      "id": 3,
+      "slot_id": 3,
+      "customer_id": 3,
+      "resources": [
+        {
+          "id": 3
+        },
+        {
+          "id": 6
+        }
+      ],
+      "status": 3
+    }
   ],
-  "customers":
-  [
-    { "id": 1, "slot_id": 1, "booking_id": 1, "name": "Json Niinaa", "phone": "45612345", "email": "json.niinaa@polku.io" },
-    { "id": 2, "slot_id": 2, "booking_id": 2, "name": "Maria Bacon", "phone": "46978134", "email": "maria.bacon@polku.io" },
-    { "id": 3, "slot_id": 3, "booking_id": 3, "name": "Jack Juusto", "phone": "49867136", "email": "jack.juusto@polku.io" }
+  "customers": [
+    {
+      "id": 1,
+      "slot_id": 1,
+      "booking_id": 1,
+      "name": "Json Niinaa",
+      "phone": "45612345",
+      "email": "json.niinaa@polku.io"
+    },
+    {
+      "id": 2,
+      "slot_id": 2,
+      "booking_id": 2,
+      "name": "Maria Bacon",
+      "phone": "46978134",
+      "email": "maria.bacon@polku.io"
+    },
+    {
+      "id": 3,
+      "slot_id": 3,
+      "booking_id": 3,
+      "name": "Jack Juusto",
+      "phone": "49867136",
+      "email": "jack.juusto@polku.io"
+    }
   ]
 }

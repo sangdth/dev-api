@@ -4,6 +4,7 @@ const { google } = require('googleapis');
 
 let auth;
 let resourceId = '';
+let events = [];
 
 // If modifying these scopes, delete token.json.
 const SCOPES = [
@@ -75,22 +76,21 @@ function getAccessToken(oAuth2Client, callback) {
 }
 
 /**
- * Lists the next 10 events on the user's primary calendar.
+ * Lists the next 20 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function listEvents(client) {
   auth = client;
-  // const appRes = res;
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.list({
     calendarId: 'primary',
     timeMin: (new Date()).toISOString(),
-    maxResults: 10,
+    maxResults: 20,
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
     // if (err) return console.log(`The API returned an error: ${err}`);
-    const events = res.data.items;
+    events = res.data.items;
     if (events.length) {
       console.log('Upcoming 20 events:');
       events.map((event) => {
@@ -103,6 +103,13 @@ function listEvents(client) {
   });
 }
 
+/**
+ * Lists the next 20 events on the user's primary calendar.
+ * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ */
+function updateEvent(event, callback) {
+}
+
 module.exports.hook = (req, callback) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
@@ -111,11 +118,31 @@ module.exports.hook = (req, callback) => {
   console.log('received signal from Google');
   console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
   console.log('and resource ID is:', req.headers['x-goog-resource-id']);
-  callback({
-    status: 200,
-    data: req.headers,
-  });
+
+  listEvents(auth);
+  callback(events);
   // listEvents(auth);
+};
+
+module.exports.updateEvent = (editedEvent, callback) => {
+  // first need to get all events, then find by id
+  listEvents(auth);
+
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  calendar.events.update({
+    calendarId: 'primary',
+    eventId: editedEvent.id,
+    resource: {
+      summary: editedEvent.summary,
+      start: editedEvent.start,
+      end: editedEvent.end,
+    },
+  }, (err, res) => {
+    if (err) return err;
+    // res will be the updated event
+    callback(res);
+  });
 };
 
 /**
