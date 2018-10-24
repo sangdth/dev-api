@@ -9,7 +9,7 @@
   "calendars": [
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540361355311000\"",
+      "etag": "\"1540380200889000\"",
       "id": "cognio.co_jdihrdaltb1eecg0f9kfsdod24@group.calendar.google.com",
       "summary": "Type 2 (60mins)",
       "timeZone": "Europe/Helsinki",
@@ -27,7 +27,7 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540361440481000\"",
+      "etag": "\"1540380200419000\"",
       "id": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com",
       "summary": "Type 1 (30mins)",
       "timeZone": "Europe/Helsinki",
@@ -45,7 +45,7 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540360917267000\"",
+      "etag": "\"1540378878463000\"",
       "id": "sang.dang@polku.io",
       "summary": "Primary",
       "timeZone": "Europe/Helsinki",
@@ -108,7 +108,7 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540360918602000\"",
+      "etag": "\"1540380198116000\"",
       "id": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
       "summary": "Resources",
       "description": "Car",
@@ -160,167 +160,181 @@
       }
     }
   ],
-  "events": [
+  "channels": [
     {
-      "kind": "calendar#event",
-      "etag": "\"3080591768550000\"",
-      "id": "1k0vcbp3d5r7sasom1stkvaime",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=MWswdmNicDNkNXI3c2Fzb20xc3RrdmFpbWUgc2FuZy5kYW5nQHBvbGt1Lmlv",
-      "created": "2018-10-23T11:11:55.000Z",
-      "updated": "2018-10-23T11:58:04.275Z",
-      "summary": "day1",
-      "creator": {
-        "email": "sang.dang@polku.io",
-        "self": true
-      },
-      "organizer": {
-        "email": "sang.dang@polku.io",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2018-10-25T08:15:00+03:00"
-      },
-      "end": {
-        "dateTime": "2018-10-25T21:45:00+03:00"
-      },
-      "iCalUID": "1k0vcbp3d5r7sasom1stkvaime@google.com",
-      "sequence": 4,
-      "extendedProperties": {
-        "private": {
-          "everyoneDeclinedDismissed": "-1"
-        }
-      },
-      "reminders": {
-        "useDefault": true
-      }
+      "kind": "api#channel",
+      "id": "686768-asdf-123-fg12hj-q35wer-5zg467ad-333-resources",
+      "resourceId": "Z9Frk7lhzURFYZ6AmkCfFsOD5so",
+      "resourceUri": "https://www.googleapis.com/calendar/v3/calendars/cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com/events?maxResults=250&alt=json",
+      "token": "polku-token-686768-asdf-123-fg12hj-q35wer-5zg467ad-333-resources",
+      "expiration": "1540978364000"
     },
     {
-      "kind": "calendar#event",
-      "etag": "\"3080593394068000\"",
-      "id": "hkkg8ar8q5f0bn2a5r4jmrkiv8",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=aGtrZzhhcjhxNWYwYm4yYTVyNGptcmtpdjggY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
-      "created": "2018-10-23T12:11:37.000Z",
-      "updated": "2018-10-23T12:11:37.034Z",
-      "summary": "Created from client, default green color, test 99999",
-      "colorId": "2",
-      "creator": {
-        "email": "sang.dang@polku.io"
-      },
-      "organizer": {
-        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
-        "displayName": "Slots",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2018-10-25T11:45:00+03:00"
-      },
-      "end": {
-        "dateTime": "2018-10-25T13:15:00+03:00"
-      },
-      "iCalUID": "hkkg8ar8q5f0bn2a5r4jmrkiv8@google.com",
-      "sequence": 0,
-      "reminders": {
-        "useDefault": true
-      }
+      "kind": "api#channel",
+      "id": "686768-asdf-123-fg12hj-q35wer-5zg467ad-333-type-1",
+      "resourceId": "T2V6tDUm5Xl2P6ndErhIvLBEgDk",
+      "resourceUri": "https://www.googleapis.com/calendar/v3/calendars/cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com/events?maxResults=250&alt=json",
+      "token": "polku-token-686768-asdf-123-fg12hj-q35wer-5zg467ad-333-type-1",
+      "expiration": "1540978498000"
     },
     {
-      "kind": "calendar#event",
-      "etag": "\"3080594596702000\"",
-      "id": "h9d7vsmsf10eu13n8bkl0dc73o",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=aDlkN3ZzbXNmMTBldTEzbjhia2wwZGM3M28gY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
-      "created": "2018-10-23T12:21:38.000Z",
-      "updated": "2018-10-23T12:21:38.351Z",
-      "summary": "Created from client, default green color, test 99999",
-      "colorId": "2",
-      "creator": {
-        "email": "sang.dang@polku.io"
-      },
-      "organizer": {
-        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
-        "displayName": "Slots",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2018-10-25T11:45:00+03:00"
-      },
-      "end": {
-        "dateTime": "2018-10-25T13:15:00+03:00"
-      },
-      "iCalUID": "h9d7vsmsf10eu13n8bkl0dc73o@google.com",
-      "sequence": 0,
-      "reminders": {
-        "useDefault": true
-      }
+      "kind": "api#channel",
+      "id": "686768-asdf-123-fg12hj-q35wer-5zg467ad-333-type-2",
+      "resourceId": "MNS7QO3E61MdOI09J0D-kH6pFkg",
+      "resourceUri": "https://www.googleapis.com/calendar/v3/calendars/cognio.co_jdihrdaltb1eecg0f9kfsdod24@group.calendar.google.com/events?maxResults=250&alt=json",
+      "token": "polku-token-686768-asdf-123-fg12hj-q35wer-5zg467ad-333-type-2",
+      "expiration": "1540978568000"
     }
   ],
-  "slots": [
-    {
-      "kind": "calendar#event",
-      "etag": "\"3080726458978000\"",
-      "id": "1k0vcbp3d5r7sasom1stkvaime",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=MWswdmNicDNkNXI3c2Fzb20xc3RrdmFpbWUgc2FuZy5kYW5nQHBvbGt1Lmlv",
-      "created": "2018-10-23T11:11:55.000Z",
-      "updated": "2018-10-24T06:40:29.489Z",
-      "summary": "Viet",
-      "creator": {
-        "email": "sang.dang@polku.io",
-        "self": true
-      },
-      "organizer": {
-        "email": "sang.dang@polku.io",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2018-10-26T08:30:00+03:00"
-      },
-      "end": {
-        "dateTime": "2018-10-26T22:00:00+03:00"
-      },
-      "iCalUID": "1k0vcbp3d5r7sasom1stkvaime@google.com",
-      "sequence": 15,
-      "extendedProperties": {
-        "private": {
-          "everyoneDeclinedDismissed": "-1"
+  "events": {
+    "primary": [
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080762463038000\"",
+        "id": "1k0vcbp3d5r7sasom1stkvaime",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=MWswdmNicDNkNXI3c2Fzb20xc3RrdmFpbWUgc2FuZy5kYW5nQHBvbGt1Lmlv",
+        "created": "2018-10-23T11:11:55.000Z",
+        "updated": "2018-10-24T11:40:31.519Z",
+        "summary": "Viet",
+        "creator": {
+          "email": "sang.dang@polku.io",
+          "self": true
+        },
+        "organizer": {
+          "email": "sang.dang@polku.io",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-25T08:30:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-25T22:00:00+03:00"
+        },
+        "iCalUID": "1k0vcbp3d5r7sasom1stkvaime@google.com",
+        "sequence": 19,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": true
+        }
+      }
+    ],
+    "resources": [
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080755585049000\"",
+        "id": "2l6o1js3ligahm2ffla5ilcngj",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=Mmw2bzFqczNsaWdhaG0yZmZsYTVpbGNuZ2ogY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
+        "created": "2018-10-24T09:45:37.000Z",
+        "updated": "2018-10-24T11:40:47.965Z",
+        "summary": "Lada",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
+          "displayName": "Resources",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-26T15:15:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-26T17:30:00+03:00"
+        },
+        "iCalUID": "2l6o1js3ligahm2ffla5ilcngj@google.com",
+        "sequence": 5,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
+      }
+    ],
+    "slots": [
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080676591209000\"",
+        "id": "4j5uvfbjf74ejilecn8rpmi5n7",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=NGo1dXZmYmpmNzRlamlsZWNuOHJwbWk1bjcgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+        "created": "2018-10-23T12:03:29.000Z",
+        "updated": "2018-10-24T11:26:21.984Z",
+        "summary": "Slav drives horse, with topless, and cowboy hat",
+        "colorId": "11",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+          "displayName": "Slots",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-24T16:30:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-24T19:30:00+03:00"
+        },
+        "iCalUID": "4j5uvfbjf74ejilecn8rpmi5n7@google.com",
+        "sequence": 6,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
         }
       },
-      "reminders": {
-        "useDefault": true
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080677778085000\"",
+        "id": "3vdc7o8qa9ngqud95ffi34d3iu",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=M3ZkYzdvOHFhOW5ncXVkOTVmZmkzNGQzaXUgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+        "created": "2018-10-23T12:03:12.000Z",
+        "updated": "2018-10-24T11:46:25.778Z",
+        "summary": "Lam Duong will pick Mikko up by truck, with a duck, then go find Hulk",
+        "colorId": "11",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+          "displayName": "Slots",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-25T17:15:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-25T19:00:00+03:00"
+        },
+        "iCalUID": "3vdc7o8qa9ngqud95ffi34d3iu@google.com",
+        "sequence": 7,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
       }
-    },
-    {
-      "kind": "calendar#event",
-      "etag": "\"3080739872300000\"",
-      "id": "1bauv04ec4rp78kllrkukvbbag",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=MWJhdXYwNGVjNHJwNzhrbGxya3VrdmJiYWcgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
-      "created": "2018-10-24T08:32:16.000Z",
-      "updated": "2018-10-24T08:32:16.150Z",
-      "summary": "Created from client, default green color, test 99999",
-      "colorId": "2",
-      "creator": {
-        "email": "sang.dang@polku.io"
-      },
-      "organizer": {
-        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
-        "displayName": "Slots",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2018-10-25T11:45:00+03:00"
-      },
-      "end": {
-        "dateTime": "2018-10-25T13:15:00+03:00"
-      },
-      "iCalUID": "1bauv04ec4rp78kllrkukvbbag@google.com",
-      "sequence": 0,
-      "reminders": {
-        "useDefault": true
-      }
-    },
+    ],
+    "typeOne": [],
+    "typeTwo": []
+  },
+  "slots": [
     {
       "kind": "calendar#event",
       "etag": "\"3080740498534000\"",

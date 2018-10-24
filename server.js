@@ -28,6 +28,9 @@ gcAuth.init((result) => {
   });
 });
 
+const cMap = db.get('calendarMapping').value();
+
+
 server.post('/slots', (req, res) => {
   gcEvents.createEvent(req.body, auth, (result) => {
     const created = db.get('slots').push(result).write();
@@ -45,7 +48,7 @@ server.put('/slots/:id', (req, res) => {
     .assign(req.body)
     .value();
 
-  gcEvents.updateEvent(edited, (result) => {
+  gcEvents.updateEvent(edited, auth, (result) => {
     res.status(200).send({
       success: true,
       message: edited,
@@ -58,56 +61,55 @@ server.put('/slots/:id', (req, res) => {
 // Need to call custom route before server.use(router)
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
-  const allSlots = db.get('slots').value();
+
+  const allEvents = db.get('events').value();
   // console.log('all slots', allSlots);
 
-  if (req.query.calendar === 'sang.dang@polku.io') {
-    console.log('primary calendar changed #################');
+  gcEvents.listEventsByCalendarId(req.query.calendar, auth, (events) => {
+    console.log('$$$$$$ calendarId from req', req.query.calendar);
+    const calendarId = req.query.calendar.toString();
+    const calendarName = getKeyByValue(cMap, calendarId);
+    
+    if (events.length > 0) {
+      db.set(`events[${calendarName}]`, events).write();
+    }
+  });
+
+  if (req.query.calendar === cMap['primary']) {
+    console.log('### Primary calendar changed');
+    // we use this to trigger the slot calculations
+  }
+
+  if (req.query.calendar === cMap['resources']) {
+    console.log('### Resources calendar changed');
+    // we use this to trigger the slot calculations
+  }
+
+  if (req.query.calendar === cMap['typeOne']) {
+    console.log('### typeOne calendar changed');
+    // we use this to trigger the slot calculations
+  }
+
+  if (req.query.calendar === cMap['typeTwo']) {
+    console.log('### typeTwo calendar changed');
     // we use this to trigger the slot calculations
   }
 
   // after this the hook() can use allSlots to compare
   // with list events
-  if (req.query.calendar === slotCalendarId) {
-    console.log('slot calendar changed ################################################################################');
-    gcEvents.hook(req, (events) => {
-      const zetSlots = new Zet(allSlots.map(s => s.id));
-      const zetEvents = new Zet(events.map(e => e.id));
+  if (req.query.calendar === cMap['slots']) {
+    console.log('### slot calendar changed');
 
-      // events in local, but not in GC
-      const localItems = Array.from(zetSlots.difference(zetEvents));
-
-      // events on GC, but on in local
-      const remoteItems = Array.from(zetEvents.difference(zetSlots));
-
-      // console.log(localItems, remoteItems);
-      // download from GC to local
-      // right now I just download directly, in future we need to 
-      // run createSlot() with slot details
-      if (remoteItems.length > 0) {
-        for (let i = 0, l = remoteItems.length; i < l; i++) {
-          console.log('Found new event, add to database');
-          const foundIndex = events.findIndex(e => e.id === remoteItems[i]);
-          db.get('slots').push(events[foundIndex]).write();
-        }
-      }
-
-      // in case admin delete the remote event, there is no way to prevent it,
-      // we have to use the localItems to create new events
-      // then, remember, we can not use local id, so after create new event on GC
-      // we need to delete all localItems with old id, and download the 
-      // re-created events from GC.
-    });
   }
 
 });
 
 /**
- * req below is come from user(postman, vue front end etc
+ * req below is come from user: postman, vue front end etc
  * it is not the same with hook
  */
 server.post('/channels/create', (req, res) => {
-  gcEvents.createChannel(req.body, (result) => {
+  gcEvents.createChannel(req.body, auth, (result) => {
     res.status(result.status).send({
       success: true,
       message: `Channel id ${req.body.id} was created successfully.`,
@@ -118,7 +120,7 @@ server.post('/channels/create', (req, res) => {
 
 // closeChannel return empty result if successful
 server.delete('/channels/close/:id', (req, res) => {
-  gcEvents.closeChannel(req.params.id, (result) => {
+  gcEvents.closeChannel(req.params.id, auth, (result) => {
     res.status(200).send({
       success: true,
       message: result,
@@ -130,3 +132,32 @@ server.use(router);
 server.listen(3000, () => {
   console.log('JSON Server is running');
 });
+
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+/*
+     * do compare later, now just write directly into database
+    const zetSlots = new Zet(allEvents.map(s => s.id));
+    const zetEvents = new Zet(events.map(e => e.id));
+
+    // events in local, but not in GC
+    const localItems = Array.from(zetSlots.difference(zetEvents));
+
+    // events on GC, but on in local
+    const remoteItems = Array.from(zetEvents.difference(zetSlots));
+      for (let i = 0, l = remoteItems.length; i < l; i++) {
+        console.log('Found new event, add to database');
+        const foundIndex = events.findIndex(e => e.id === remoteItems[i]);
+        db.get('events').push(events[foundIndex]).write();
+      }
+    // in case admin delete the remote event, there is no way to prevent it,
+    // we have to use the localItems to create new events
+    // then, remember, we can not use local id, so after create new event on GC
+    // we need to delete all localItems with old id, and download the 
+    // re-created events from GC.
+    */
+
+    
+

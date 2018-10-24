@@ -13,6 +13,7 @@ let slotEvents = [];
 
 function listEventsByCalendar(calendarId, auth) {
   const calendar = google.calendar({ version: 'v3', auth });
+
   calendar.events.list({
     calendarId,
     timeMin: (new Date()).toISOString(),
@@ -34,11 +35,27 @@ function listEventsByCalendar(calendarId, auth) {
   });
 }
 
+module.exports.listEventsByCalendarId = (calendarId, auth, callback) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  calendar.events.list({
+    calendarId,
+    timeMin: (new Date()).toISOString(),
+    maxResults: 20,
+    singleEvents: true,
+    orderBy: 'startTime',
+  }, (err, res) => {
+    if (err) return console.log(`The API returned an error: ${err}`);
+    const events = res.data.items;
+    callback(events);
+  });
+};
+
 /**
  * This is where GC send back data and we use it to keep our 
  * database up to date with GC.
  */
-module.exports.hook = (req, callback) => {
+module.exports.hook = (req, auth, callback) => {
   // from here we can do something, let's say anytime google push us notification,
   // we try to list all current events
   // everything userful from Google API is sent in req.headers
@@ -48,7 +65,7 @@ module.exports.hook = (req, callback) => {
   console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
   // console.log('and resource ID is:', req.headers['x-goog-resource-id']);
 
-  // listEventsByCalendar(req.query.calendar);
+  listEventsByCalendar(req.query.calendar, auth);
   callback(events);
   // listEvents(auth);
 };
@@ -79,7 +96,7 @@ module.exports.createEvent = (newEvent, auth, callback) => {
 /**
  * We update the event in GC everytime we change something in our database.
  */
-module.exports.updateEvent = (editedEvent, callback) => {
+module.exports.updateEvent = (editedEvent, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
 
   calendar.events.update({
@@ -104,7 +121,7 @@ module.exports.updateEvent = (editedEvent, callback) => {
  * after that, we must regenerate new id
  * also we need to store the id in order to close this channel in future
  */
-module.exports.createChannel = (data, callback) => {
+module.exports.createChannel = (data, auth, callback) => {
   console.log('data in createChannel', data);
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.watch({ // post method
@@ -128,7 +145,7 @@ module.exports.createChannel = (data, callback) => {
  * There are two way to get it: In headers request comes from Google API
  * or we can store it into our localStorage, database etc.
  */
-module.exports.closeChannel = (id, callback) => {
+module.exports.closeChannel = (id, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.channels.stop({
     auth,
