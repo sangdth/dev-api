@@ -2,11 +2,13 @@ const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
+const gcAuth = require('./gc-auth');
 const gcCalendars = require('./gc-calendars.js');
 const gcEvents = require('./gc-events.js');
 const Zet = require('zet');
 
 const db = router.db;
+
 const slotCalendarId = 'cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com';
 
 // it is recommended to use the bodyParser middleware before any other middleware in your application
@@ -14,10 +16,20 @@ server.use(jsonServer.bodyParser);
 
 server.use(middlewares);
 
+// get auth for Google API
+let auth;
+
+gcAuth.init((result) => {
+  auth = result;
+// get calendar list, run once at beginning
+// we can make refresh button in front, that call a trigger here later
+  gcCalendars.listCalendars(auth, (calendars) => {
+    db.set('calendars', calendars).write();
+  });
+});
 
 server.post('/slots', (req, res) => {
-
-  gcEvents.createEvent(req.body, (result) => {
+  gcEvents.createEvent(req.body, auth, (result) => {
     const created = db.get('slots').push(result).write();
 
     res.status(200).send({
@@ -49,9 +61,15 @@ server.post('/notifications', (req, res) => {
   const allSlots = db.get('slots').value();
   // console.log('all slots', allSlots);
 
+  if (req.query.calendar === 'sang.dang@polku.io') {
+    console.log('primary calendar changed #################');
+    // we use this to trigger the slot calculations
+  }
+
   // after this the hook() can use allSlots to compare
   // with list events
   if (req.query.calendar === slotCalendarId) {
+    console.log('slot calendar changed ################################################################################');
     gcEvents.hook(req, (events) => {
       const zetSlots = new Zet(allSlots.map(s => s.id));
       const zetEvents = new Zet(events.map(e => e.id));
@@ -82,13 +100,6 @@ server.post('/notifications', (req, res) => {
     });
   }
 
-  if (req.query.calendar === 'sang.dang@polku.io') {
-    console.log('primary calendar changed');
-    gcCalendars.hook(req, (calendars) => {
-      console.log('calendars hook run');
-      // from here we can get events from slot
-    });
-  }
 });
 
 /**

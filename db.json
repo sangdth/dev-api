@@ -1,5 +1,166 @@
 {
-  "slots": [
+  "calendarMapping": {
+    "primary": "sang.dang@polku.io",
+    "slots": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+    "resources": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
+    "typeOne": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com",
+    "typeTwo": "cognio.co_jdihrdaltb1eecg0f9kfsdod24@group.calendar.google.com"
+  },
+  "calendars": [
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540361355311000\"",
+      "id": "cognio.co_jdihrdaltb1eecg0f9kfsdod24@group.calendar.google.com",
+      "summary": "Type 2 (60mins)",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "5",
+      "backgroundColor": "#ff7537",
+      "foregroundColor": "#000000",
+      "selected": true,
+      "accessRole": "owner",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540361440481000\"",
+      "id": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com",
+      "summary": "Type 1 (30mins)",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "14",
+      "backgroundColor": "#9fe1e7",
+      "foregroundColor": "#000000",
+      "selected": true,
+      "accessRole": "owner",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540360917267000\"",
+      "id": "sang.dang@polku.io",
+      "summary": "Primary",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "14",
+      "backgroundColor": "#cceeff",
+      "foregroundColor": "#000000",
+      "selected": true,
+      "accessRole": "owner",
+      "defaultReminders": [
+        {
+          "method": "popup",
+          "minutes": 10
+        }
+      ],
+      "notificationSettings": {
+        "notifications": [
+          {
+            "type": "eventCreation",
+            "method": "email"
+          },
+          {
+            "type": "eventChange",
+            "method": "email"
+          },
+          {
+            "type": "eventCancellation",
+            "method": "email"
+          },
+          {
+            "type": "eventResponse",
+            "method": "email"
+          }
+        ]
+      },
+      "primary": true,
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540361246738000\"",
+      "id": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+      "summary": "Slots",
+      "description": "Show free/booked slots",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "13",
+      "backgroundColor": "#92e1c0",
+      "foregroundColor": "#000000",
+      "selected": true,
+      "accessRole": "owner",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540360918602000\"",
+      "id": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
+      "summary": "Resources",
+      "description": "Car",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "1",
+      "backgroundColor": "#ac725e",
+      "foregroundColor": "#000000",
+      "selected": true,
+      "accessRole": "owner",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1540293176731000\"",
+      "id": "en.finnish#holiday@group.v.calendar.google.com",
+      "summary": "Holidays in Finland",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "17",
+      "backgroundColor": "#9a9cff",
+      "foregroundColor": "#000000",
+      "accessRole": "reader",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    },
+    {
+      "kind": "calendar#calendarListEntry",
+      "etag": "\"1516023118296000\"",
+      "id": "e_2_en#weeknum@group.v.calendar.google.com",
+      "summary": "Week Numbers",
+      "timeZone": "Europe/Helsinki",
+      "colorId": "24",
+      "backgroundColor": "#a47ae2",
+      "foregroundColor": "#000000",
+      "accessRole": "reader",
+      "defaultReminders": [],
+      "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+          "hangoutsMeet"
+        ]
+      }
+    }
+  ],
+  "events": [
     {
       "kind": "calendar#event",
       "etag": "\"3080591768550000\"",
@@ -89,6 +250,102 @@
         "dateTime": "2018-10-25T13:15:00+03:00"
       },
       "iCalUID": "h9d7vsmsf10eu13n8bkl0dc73o@google.com",
+      "sequence": 0,
+      "reminders": {
+        "useDefault": true
+      }
+    }
+  ],
+  "slots": [
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080726458978000\"",
+      "id": "1k0vcbp3d5r7sasom1stkvaime",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=MWswdmNicDNkNXI3c2Fzb20xc3RrdmFpbWUgc2FuZy5kYW5nQHBvbGt1Lmlv",
+      "created": "2018-10-23T11:11:55.000Z",
+      "updated": "2018-10-24T06:40:29.489Z",
+      "summary": "Viet",
+      "creator": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "organizer": {
+        "email": "sang.dang@polku.io",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-26T08:30:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-26T22:00:00+03:00"
+      },
+      "iCalUID": "1k0vcbp3d5r7sasom1stkvaime@google.com",
+      "sequence": 15,
+      "extendedProperties": {
+        "private": {
+          "everyoneDeclinedDismissed": "-1"
+        }
+      },
+      "reminders": {
+        "useDefault": true
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080739872300000\"",
+      "id": "1bauv04ec4rp78kllrkukvbbag",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=MWJhdXYwNGVjNHJwNzhrbGxya3VrdmJiYWcgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+      "created": "2018-10-24T08:32:16.000Z",
+      "updated": "2018-10-24T08:32:16.150Z",
+      "summary": "Created from client, default green color, test 99999",
+      "colorId": "2",
+      "creator": {
+        "email": "sang.dang@polku.io"
+      },
+      "organizer": {
+        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+        "displayName": "Slots",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-25T11:45:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-25T13:15:00+03:00"
+      },
+      "iCalUID": "1bauv04ec4rp78kllrkukvbbag@google.com",
+      "sequence": 0,
+      "reminders": {
+        "useDefault": true
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"3080740498534000\"",
+      "id": "sc0fhulamko8qfa2jleag97i2k",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=c2MwZmh1bGFta284cWZhMmpsZWFnOTdpMmsgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+      "created": "2018-10-24T08:37:29.000Z",
+      "updated": "2018-10-24T08:37:29.267Z",
+      "summary": "Created from client, default green color, test 889898998998",
+      "colorId": "2",
+      "creator": {
+        "email": "sang.dang@polku.io"
+      },
+      "organizer": {
+        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+        "displayName": "Slots",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2018-10-25T11:45:00+03:00"
+      },
+      "end": {
+        "dateTime": "2018-10-25T13:15:00+03:00"
+      },
+      "iCalUID": "sc0fhulamko8qfa2jleag97i2k@google.com",
       "sequence": 0,
       "reminders": {
         "useDefault": true
