@@ -226,12 +226,12 @@
     "resources": [
       {
         "kind": "calendar#event",
-        "etag": "\"3080755585049000\"",
+        "etag": "\"3080819517672000\"",
         "id": "2l6o1js3ligahm2ffla5ilcngj",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=Mmw2bzFqczNsaWdhaG0yZmZsYTVpbGNuZ2ogY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
         "created": "2018-10-24T09:45:37.000Z",
-        "updated": "2018-10-24T11:40:47.965Z",
+        "updated": "2018-10-25T05:26:20.588Z",
         "summary": "Lada",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -242,13 +242,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-10-26T15:15:00+03:00"
+          "dateTime": "2018-10-26T19:00:00+03:00"
         },
         "end": {
-          "dateTime": "2018-10-26T17:30:00+03:00"
+          "dateTime": "2018-10-26T21:15:00+03:00"
         },
         "iCalUID": "2l6o1js3ligahm2ffla5ilcngj@google.com",
-        "sequence": 5,
+        "sequence": 6,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -262,14 +262,13 @@
     "slots": [
       {
         "kind": "calendar#event",
-        "etag": "\"3080676591209000\"",
+        "etag": "\"3080766402627000\"",
         "id": "4j5uvfbjf74ejilecn8rpmi5n7",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NGo1dXZmYmpmNzRlamlsZWNuOHJwbWk1bjcgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-23T12:03:29.000Z",
-        "updated": "2018-10-24T11:26:21.984Z",
+        "updated": "2018-10-25T12:23:13.402Z",
         "summary": "Slav drives horse, with topless, and cowboy hat",
-        "colorId": "11",
         "creator": {
           "email": "sang.dang@polku.io"
         },
@@ -279,13 +278,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-10-24T16:30:00+03:00"
+          "dateTime": "2018-10-25T16:15:00+03:00"
         },
         "end": {
-          "dateTime": "2018-10-24T19:30:00+03:00"
+          "dateTime": "2018-10-25T18:00:00+03:00"
         },
         "iCalUID": "4j5uvfbjf74ejilecn8rpmi5n7@google.com",
-        "sequence": 6,
+        "sequence": 19,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -297,14 +296,13 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3080677778085000\"",
+        "etag": "\"3080706942216000\"",
         "id": "3vdc7o8qa9ngqud95ffi34d3iu",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=M3ZkYzdvOHFhOW5ncXVkOTVmZmkzNGQzaXUgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-23T12:03:12.000Z",
-        "updated": "2018-10-24T11:46:25.778Z",
+        "updated": "2018-10-24T19:52:29.909Z",
         "summary": "Lam Duong will pick Mikko up by truck, with a duck, then go find Hulk",
-        "colorId": "11",
         "creator": {
           "email": "sang.dang@polku.io"
         },
@@ -314,13 +312,115 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-10-25T17:15:00+03:00"
+          "dateTime": "2018-10-26T11:15:00+03:00"
         },
         "end": {
-          "dateTime": "2018-10-25T19:00:00+03:00"
+          "dateTime": "2018-10-26T13:00:00+03:00"
         },
         "iCalUID": "3vdc7o8qa9ngqud95ffi34d3iu@google.com",
-        "sequence": 7,
+        "sequence": 17,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080880977215000\"",
+        "id": "5qt2o87d73dj2gcm8gpla70shf",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXF0Mm84N2Q3M2RqMmdjbThncGxhNzBzaGYgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+        "created": "2018-10-24T19:52:49.000Z",
+        "updated": "2018-10-25T12:23:27.792Z",
+        "summary": "Slot 01",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+          "displayName": "Slots",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-27T08:45:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-27T10:15:00+03:00"
+        },
+        "iCalUID": "5qt2o87d73dj2gcm8gpla70shf@google.com",
+        "sequence": 1,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080878938220000\"",
+        "id": "63qqgedvapjerqr15a8h2357ph",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=NjNxcWdlZHZhcGplcnFyMTVhOGgyMzU3cGggY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+        "created": "2018-10-24T19:51:08.000Z",
+        "updated": "2018-10-25T11:51:09.974Z",
+        "summary": "Test Again",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+          "displayName": "Slots",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-27T10:30:00+03:00"
+        },
+        "end": {
+          "dateTime": "2018-10-27T14:30:00+03:00"
+        },
+        "iCalUID": "63qqgedvapjerqr15a8h2357ph@google.com",
+        "sequence": 2,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3080936587550000\"",
+        "id": "6pbgm9r8ue30sifdgeeroi0f71",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=NnBiZ205cjh1ZTMwc2lmZGdlZXJvaTBmNzEgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
+        "created": "2018-10-25T11:51:33.000Z",
+        "updated": "2018-10-25T11:51:33.827Z",
+        "summary": "Event in week 44",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
+          "displayName": "Slots",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-30T10:00:00+02:00"
+        },
+        "end": {
+          "dateTime": "2018-10-30T12:15:00+02:00"
+        },
+        "iCalUID": "6pbgm9r8ue30sifdgeeroi0f71@google.com",
+        "sequence": 0,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"

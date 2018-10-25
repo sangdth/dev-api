@@ -6,10 +6,9 @@ const gcAuth = require('./gc-auth');
 const gcCalendars = require('./gc-calendars.js');
 const gcEvents = require('./gc-events.js');
 const Zet = require('zet');
+const moment = require('moment');
 
 const db = router.db;
-
-const slotCalendarId = 'cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com';
 
 // it is recommended to use the bodyParser middleware before any other middleware in your application
 server.use(jsonServer.bodyParser);
@@ -30,6 +29,33 @@ gcAuth.init((result) => {
 
 const cMap = db.get('calendarMapping').value();
 
+server.get('/slots', (req, res) => {
+  const min = req.query.from;
+  const max = req.query.to;
+  let slots = [];
+
+
+  // Google events use RFC 3339 time format
+  if (min && max) {
+    slots = db.get('events.slots')
+      .filter(slot => {
+        const slotStart = moment(slot.start.dateTime).format('x');
+        const slotEnd = moment(slot.end.dateTime).format('x');
+
+        if (min < slotStart && slotEnd < max) {
+          return slot;
+        }
+      })
+      .value();
+  } else {
+    slots = db.get('events.slots').value();
+  }
+
+  res.status(200).send({
+    success: true,
+    message: slots,
+  });
+});
 
 server.post('/slots', (req, res) => {
   gcEvents.createEvent(req.body, auth, (result) => {
