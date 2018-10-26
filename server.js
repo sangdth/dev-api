@@ -10,14 +10,12 @@ const moment = require('moment');
 
 const db = router.db;
 
-// it is recommended to use the bodyParser middleware before any other middleware in your application
 server.use(jsonServer.bodyParser);
 
 server.use(middlewares);
 
 // get auth for Google API
 let auth;
-
 gcAuth.init((result) => {
   auth = result;
 // get calendar list, run once at beginning
@@ -29,16 +27,17 @@ gcAuth.init((result) => {
 
 const cMap = db.get('calendarMapping').value();
 
+// query slots events
 server.get('/slots', (req, res) => {
   const min = req.query.from;
   const max = req.query.to;
   let slots = [];
 
-
-  // Google events use RFC 3339 time format
   if (min && max) {
     slots = db.get('events.slots')
       .filter(slot => {
+        // Google events use RFC 3339 time format
+        // we need to convert back to milliseconds to compare
         const slotStart = moment(slot.start.dateTime).format('x');
         const slotEnd = moment(slot.end.dateTime).format('x');
 
@@ -48,6 +47,7 @@ server.get('/slots', (req, res) => {
       })
       .value();
   } else {
+    // do more if check
     slots = db.get('events.slots').value();
   }
 
@@ -87,45 +87,28 @@ server.put('/slots/:id', (req, res) => {
 // Need to call custom route before server.use(router)
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
-
+  let calendarId;
   const allEvents = db.get('events').value();
-  // console.log('all slots', allSlots);
 
-  gcEvents.listEventsByCalendarId(req.query.calendar, auth, (events) => {
-    console.log('$$$$$$ calendarId from req', req.query.calendar);
-    const calendarId = req.query.calendar.toString();
-    const calendarName = getKeyByValue(cMap, calendarId);
-    
-    if (events.length > 0) {
-      db.set(`events[${calendarName}]`, events).write();
-    }
+  if (req.query.calendar) {
+    calendarId = req.query.calendar.toString();
+  } else {
+    calendarId = 'sang.dang@polku.io';
+  }
+
+  const calendarName = getKeyByValue(cMap, calendarId);
+
+  gcEvents.queryEventsByCalendarId(calendarId, auth, (events) => {
+    console.log('Receive notification, get data from calendar named: ', calendarName);
+
+    // db.set(`events[${calendarName}]`, events).write();
   });
 
-  if (req.query.calendar === cMap['primary']) {
-    console.log('### Primary calendar changed');
-    // we use this to trigger the slot calculations
-  }
-
-  if (req.query.calendar === cMap['resources']) {
-    console.log('### Resources calendar changed');
-    // we use this to trigger the slot calculations
-  }
-
-  if (req.query.calendar === cMap['typeOne']) {
-    console.log('### typeOne calendar changed');
-    // we use this to trigger the slot calculations
-  }
-
-  if (req.query.calendar === cMap['typeTwo']) {
-    console.log('### typeTwo calendar changed');
-    // we use this to trigger the slot calculations
-  }
-
-  // after this the hook() can use allSlots to compare
-  // with list events
-  if (req.query.calendar === cMap['slots']) {
-    console.log('### slot calendar changed');
-
+  if (req.query.calendar === cMap[calendarName]) {
+    console.log(`### ${calendarName} calendar changed`);
+    console.log('channel ID: ', req.headers['x-goog-channel-id']);
+    console.log('resource ID:', req.headers['x-goog-resource-id']);
+    console.log('token is', req.headers['x-goog-channel-token']);
   }
 
 });
@@ -138,8 +121,8 @@ server.post('/channels/create', (req, res) => {
   gcEvents.createChannel(req.body, auth, (result) => {
     res.status(result.status).send({
       success: true,
-      message: `Channel id ${req.body.id} was created successfully.`,
-      data: result.data,
+      // message: `Channel id ${req.body.id} was created successfully.`,
+      message: result.data,
     });
   });
 });
@@ -149,7 +132,7 @@ server.delete('/channels/close/:id', (req, res) => {
   gcEvents.closeChannel(req.params.id, auth, (result) => {
     res.status(200).send({
       success: true,
-      message: result,
+      message: `Channel id ${req.params.id} was closed successfully.`,
     });
   });
 });
@@ -163,7 +146,10 @@ server.listen(3000, () => {
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
+
+
 /*
+ * old code, save for study
      * do compare later, now just write directly into database
     const zetSlots = new Zet(allEvents.map(s => s.id));
     const zetEvents = new Zet(events.map(e => e.id));
@@ -184,6 +170,4 @@ function getKeyByValue(object, value) {
     // we need to delete all localItems with old id, and download the 
     // re-created events from GC.
     */
-
-    
 

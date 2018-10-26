@@ -12,6 +12,7 @@ module.exports.listCalendars = (auth, callback) => {
 
     const calendars = res.data.items;
 
+    /*
     if (calendars.length) {
       calendars.map((calendar) => {
         console.log(`${calendar.id} - ${calendar.summary}`);
@@ -19,6 +20,7 @@ module.exports.listCalendars = (auth, callback) => {
     } else {
       console.log('No calendar found.');
     }
+    */
 
     callback(calendars);
   });

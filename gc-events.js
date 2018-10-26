@@ -35,17 +35,17 @@ function listEventsByCalendar(calendarId, auth) {
   });
 }
 
-module.exports.listEventsByCalendarId = (calendarId, auth, callback) => {
+module.exports.queryEventsByCalendarId = (calendarId, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
 
   calendar.events.list({
     calendarId,
     timeMin: (new Date()).toISOString(),
-    maxResults: 20,
+    maxResults: 1000,
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
-    if (err) return console.log(`The API returned an error: ${err}`);
+    if (err) throw err;
     const events = res.data.items;
     callback(events);
   });
@@ -125,13 +125,13 @@ module.exports.createChannel = (data, auth, callback) => {
   console.log('data in createChannel', data);
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.events.watch({ // post method
-    // auth,
     calendarId: data.calendarId,
     resource: {
       id: data.channelId,
       type: 'web_hook',
       token: 'polku-token-' + data.channelId,
-      address: `https://super.eu.ngrok.io/notifications?channel=${data.channelId}&calendar=${data.calendarId}`,
+      // address: `https://super.eu.ngrok.io/notifications?channel=${data.channelId}&calendar=${data.calendarId}`,
+      address: `https://${data.verifiedDomain}/notifications?channel=${data.channelId}&calendar=${data.calendarId}`,
     },
   }, (error, res) => {
     if (error) throw error;
@@ -148,7 +148,6 @@ module.exports.createChannel = (data, auth, callback) => {
 module.exports.closeChannel = (id, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   calendar.channels.stop({
-    auth,
     resource: {
       id,
       resourceId,
