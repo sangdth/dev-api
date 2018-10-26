@@ -32,7 +32,7 @@ server.get('/slots', (req, res) => {
   const min = req.query.from;
   const max = req.query.to;
   let slots = [];
-
+  console.log('tyepadsf', typeof min);
   if (min && max) {
     slots = db.get('events.slots')
       .filter(slot => {
@@ -88,27 +88,66 @@ server.put('/slots/:id', (req, res) => {
 // req here comes from Google API, it has rich headers
 server.post('/notifications', (req, res) => {
   let calendarId;
-  const allEvents = db.get('events').value();
 
   if (req.query.calendar) {
     calendarId = req.query.calendar.toString();
   } else {
-    calendarId = 'sang.dang@polku.io';
+    calendarId = cMap['primary'];
   }
 
   const calendarName = getKeyByValue(cMap, calendarId);
 
   gcEvents.queryEventsByCalendarId(calendarId, auth, (events) => {
     console.log('Receive notification, get data from calendar named: ', calendarName);
-
-    // db.set(`events[${calendarName}]`, events).write();
+    db.set(`events[${calendarName}]`, events).write();
   });
+
+  const allEvents = db.get('events').value();
+
+  let typeOneSlots = [];
+  let typeTwoSlots = [];
+
+  for (let i = 0; i < allEvents['primary'].length; i++) {
+    let min = toMilli(allEvents['primary'][i].start.dateTime);
+    let max = toMilli(allEvents['primary'][i].end.dateTime);
+
+    for (let j = 0; j < allEvents['resources'].length; j++) {
+      if (min < toMilli(allEvents['resources'][j].start.dateTime)) {
+        min = toMilli(allEvents['resources'][j].start.dateTime);
+      }
+      if (max > toMilli(allEvents['resources'][j].end.dateTime)) {
+        max = toMilli(allEvents['resources'][j].end.dateTime);
+      }
+
+      for (let m = 0; m < allEvents['typeOne'].length; m++) {
+        if (min < toMilli(allEvents['typeOne'][m].start.dateTime)) {
+          min = toMilli(allEvents['typeOne'][m].start.dateTime);
+        }
+        if (max > toMilli(allEvents['typeOne'][m].end.dateTime)) {
+          max = toMilli(allEvents['typeOne'][m].end.dateTime);
+        }
+        console.log('typeof min', typeof min);
+        typeOneSlots = addToSlotsArray(typeOneSlots, { min, max });
+      }
+
+      for (let n = 0; n < allEvents['typeTwo'].length; n++) {
+        if (min < toMilli(allEvents['typeTwo'][n].start.dateTime)) {
+          min = toMilli(allEvents['typeTwo'][n].start.dateTime);
+        }
+        if (max > toMilli(allEvents['typeTwo'][n].end.dateTime)) {
+          max = toMilli(allEvents['typeTwo'][n].end.dateTime);
+        }
+        typeTwoSlots = addToSlotsArray(typeTwoSlots, { min, max });
+      }
+    }
+  }
+  console.log('typeOne range: ', typeOneSlots);
 
   if (req.query.calendar === cMap[calendarName]) {
     console.log(`### incoming signal from ${calendarName}`);
-    console.log('channel ID: ', req.headers['x-goog-channel-id']);
-    console.log('resource ID:', req.headers['x-goog-resource-id']);
-    console.log('token is', req.headers['x-goog-channel-token']);
+    // console.log('channel ID: ', req.headers['x-goog-channel-id']);
+    // console.log('resource ID:', req.headers['x-goog-resource-id']);
+    // console.log('token is', req.headers['x-goog-channel-token']);
   }
 
 });
@@ -139,7 +178,7 @@ server.delete('/channels/close/:id', (req, res) => {
 
 server.use(router);
 server.listen(3000, () => {
-  console.log('JSON Server is running');
+  console.log('Demo server is running');
 });
 
 
@@ -147,6 +186,23 @@ function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
+function toMilli(date) {
+  return parseInt(moment(date).format('x'), 10);
+}
+
+function addToSlotsArray(slotsArray, range) {
+  if (slotsArray.length === 0) slotsArray.push(range);
+  for (let i = 0; i < slotsArray.length; i++) {
+    if (range.max >= slotsArray[i].max && range.min <= slotsArray[i].max) {
+      slotsArray[i].max = range.max;
+    }
+    if (slotsArray[i+1] && range.max > slotsArray[i+1].min) {
+      slotsArray[i].min = range.min;
+    }
+    slotsArray.splice(i, 0, range);
+  }
+  return slotsArray;
+}
 
 /*
  * old code, save for study
