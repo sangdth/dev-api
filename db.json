@@ -500,43 +500,7 @@
       }
     ],
     "typeOne": [],
-    "typeTwo": [],
-    "undefined": [
-      {
-        "kind": "calendar#event",
-        "etag": "\"3080913174415000\"",
-        "id": "2l6o1js3ligahm2ffla5ilcngj",
-        "status": "confirmed",
-        "htmlLink": "https://www.google.com/calendar/event?eid=Mmw2bzFqczNsaWdhaG0yZmZsYTVpbGNuZ2ogY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
-        "created": "2018-10-24T09:45:37.000Z",
-        "updated": "2018-10-26T07:27:17.331Z",
-        "summary": "Lada",
-        "creator": {
-          "email": "sang.dang@polku.io"
-        },
-        "organizer": {
-          "email": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
-          "displayName": "Resources",
-          "self": true
-        },
-        "start": {
-          "dateTime": "2018-10-26T18:00:00+03:00"
-        },
-        "end": {
-          "dateTime": "2018-10-26T20:15:00+03:00"
-        },
-        "iCalUID": "2l6o1js3ligahm2ffla5ilcngj@google.com",
-        "sequence": 8,
-        "extendedProperties": {
-          "private": {
-            "everyoneDeclinedDismissed": "-1"
-          }
-        },
-        "reminders": {
-          "useDefault": false
-        }
-      }
-    ]
+    "typeTwo": []
   },
   "slots": [
     {

@@ -105,7 +105,7 @@ server.post('/notifications', (req, res) => {
   });
 
   if (req.query.calendar === cMap[calendarName]) {
-    console.log(`### ${calendarName} calendar changed`);
+    console.log(`### incoming signal from ${calendarName}`);
     console.log('channel ID: ', req.headers['x-goog-channel-id']);
     console.log('resource ID:', req.headers['x-goog-resource-id']);
     console.log('token is', req.headers['x-goog-channel-token']);
