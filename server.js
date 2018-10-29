@@ -234,7 +234,7 @@ server.post('/notifications', (req, res) => {
 
       const slotItem = {
         summary: moment(startTime).format('HH:mm') + ' - ' + moment(endTime).format('HH:mm'),
-        slotId: `slot-id-123-abc-${i}-${j}`,
+        id: `slot-id-123-abc-${i}-${j}`,
         start: { timestamp: startTime, },
         end: { timestamp: endTime, },
         status: 0, // 0 is free, 1 is booked.
