@@ -226,12 +226,12 @@
     "primary": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081594029756000\"",
+        "etag": "\"3081598370646000\"",
         "id": "501449so2n2qclhs5mi1fcvem8",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NTAxNDQ5c28ybjJxY2xoczVtaTFmY3ZlbTggc2FuZy5kYW5nQHBvbGt1Lmlv",
         "created": "2018-10-26T10:04:47.000Z",
-        "updated": "2018-10-29T07:10:14.878Z",
+        "updated": "2018-10-29T07:46:25.323Z",
         "summary": "Worker 1",
         "creator": {
           "email": "sang.dang@polku.io",
@@ -245,7 +245,7 @@
           "dateTime": "2018-10-30T08:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-10-30T22:00:00+02:00"
+          "dateTime": "2018-10-30T20:30:00+02:00"
         },
         "iCalUID": "501449so2n2qclhs5mi1fcvem8@google.com",
         "sequence": 4,
@@ -262,12 +262,12 @@
     "resources": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081345337432000\"",
+        "etag": "\"3081352455809000\"",
         "id": "61n8ppn9t7632tin2q7fgfsip6",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NjFuOHBwbjl0NzYzMnRpbjJxN2ZnZnNpcDYgY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
         "created": "2018-10-26T10:05:19.000Z",
-        "updated": "2018-10-29T07:10:18.013Z",
+        "updated": "2018-10-29T09:08:56.390Z",
         "summary": "Car 1",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -281,10 +281,10 @@
           "dateTime": "2018-10-30T08:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-10-30T11:00:00+02:00"
+          "dateTime": "2018-10-30T12:00:00+02:00"
         },
         "iCalUID": "61n8ppn9t7632tin2q7fgfsip6@google.com",
-        "sequence": 5,
+        "sequence": 7,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -296,13 +296,13 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081345355463000\"",
-        "id": "3mqsb02vc5a2oiph3pnn2d3dsc",
+        "etag": "\"3081603473213000\"",
+        "id": "2meqbas9bemgie06geu1ou0gfd",
         "status": "confirmed",
-        "htmlLink": "https://www.google.com/calendar/event?eid=M21xc2IwMnZjNWEyb2lwaDNwbm4yZDNkc2MgY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
-        "created": "2018-10-26T10:05:35.000Z",
-        "updated": "2018-10-29T07:10:19.625Z",
-        "summary": "Car 2",
+        "htmlLink": "https://www.google.com/calendar/event?eid=Mm1lcWJhczliZW1naWUwNmdldTFvdTBnZmQgY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
+        "created": "2018-10-29T07:48:17.000Z",
+        "updated": "2018-10-29T09:09:36.162Z",
+        "summary": "car 3",
         "creator": {
           "email": "sang.dang@polku.io"
         },
@@ -312,13 +312,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-10-30T14:45:00+02:00"
+          "dateTime": "2018-10-30T14:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-10-30T22:00:00+02:00"
+          "dateTime": "2018-10-30T16:00:00+02:00"
         },
-        "iCalUID": "3mqsb02vc5a2oiph3pnn2d3dsc@google.com",
-        "sequence": 6,
+        "iCalUID": "2meqbas9bemgie06geu1ou0gfd@google.com",
+        "sequence": 0,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -395,12 +395,12 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081093199516000\"",
+        "etag": "\"3081101619660000\"",
         "id": "0c4taiqskk1unkangbt5746uce",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=MGM0dGFpcXNrazF1bmthbmdidDU3NDZ1Y2UgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-23T12:02:55.000Z",
-        "updated": "2018-10-29T07:10:23.723Z",
+        "updated": "2018-10-29T09:30:43.867Z",
         "summary": "Viet pick Arto up by Lamborghini Gallardor",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -411,13 +411,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T15:00:00+02:00"
+          "dateTime": "2018-11-01T13:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T16:30:00+02:00"
+          "dateTime": "2018-11-01T15:00:00+02:00"
         },
         "iCalUID": "0c4taiqskk1unkangbt5746uce@google.com",
-        "sequence": 12,
+        "sequence": 18,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -429,12 +429,12 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081331640410000\"",
+        "etag": "\"3081339920790000\"",
         "id": "4teu1in058qfrulilatfg5vodt",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NHRldTFpbjA1OHFmcnVsaWxhdGZnNXZvZHQgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-26T06:16:55.000Z",
-        "updated": "2018-10-29T07:10:24.744Z",
+        "updated": "2018-10-29T09:28:25.124Z",
         "summary": "Test 222222",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -445,13 +445,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T17:00:00+02:00"
+          "dateTime": "2018-11-01T16:15:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T18:15:00+02:00"
+          "dateTime": "2018-11-01T17:30:00+02:00"
         },
         "iCalUID": "4teu1in058qfrulilatfg5vodt@google.com",
-        "sequence": 13,
+        "sequence": 18,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -499,12 +499,12 @@
     "typeOne": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081345370958000\"",
+        "etag": "\"3081354214231000\"",
         "id": "6lumgpar1v3kbfgo7526mu6ne9",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=Nmx1bWdwYXIxdjNrYmZnbzc1MjZtdTZuZTkgY29nbmlvLmNvX3R2MGxwZGd2YWs0dTFyMWE4ZnEzdjk3djNrQGc",
         "created": "2018-10-26T10:05:54.000Z",
-        "updated": "2018-10-29T07:10:16.603Z",
+        "updated": "2018-10-29T09:37:39.876Z",
         "summary": "Before 12",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -518,10 +518,10 @@
           "dateTime": "2018-10-30T08:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-10-30T12:00:00+02:00"
+          "dateTime": "2018-10-30T19:45:00+02:00"
         },
         "iCalUID": "6lumgpar1v3kbfgo7526mu6ne9@google.com",
-        "sequence": 5,
+        "sequence": 12,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -535,12 +535,12 @@
     "typeTwo": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081345399450000\"",
+        "etag": "\"3081352217310000\"",
         "id": "5iffllon3pd7mumnba8nr7njfp",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NWlmZmxsb24zcGQ3bXVtbmJhOG5yN25qZnAgY29nbmlvLmNvX2pkaWhyZGFsdGIxZWVjZzBmOWtmc2RvZDI0QGc",
         "created": "2018-10-26T10:06:18.000Z",
-        "updated": "2018-10-29T07:10:20.978Z",
+        "updated": "2018-10-29T09:03:58.838Z",
         "summary": "After 12",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -569,38 +569,130 @@
       }
     ]
   },
-  "slots": [
-    {
-      "kind": "calendar#event",
-      "etag": "\"3080740498534000\"",
-      "id": "sc0fhulamko8qfa2jleag97i2k",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=c2MwZmh1bGFta284cWZhMmpsZWFnOTdpMmsgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
-      "created": "2018-10-24T08:37:29.000Z",
-      "updated": "2018-10-24T08:37:29.267Z",
-      "summary": "Created from client, default green color, test 889898998998",
-      "colorId": "2",
-      "creator": {
-        "email": "sang.dang@polku.io"
+  "slots": {
+    "typeOne": [
+      {
+        "slotId": "slot-id-123-abc-0-0",
+        "start": {
+          "timestamp": 1540879200000
+        },
+        "end": {
+          "timestamp": 1540881000000
+        },
+        "status": 0
       },
-      "organizer": {
-        "email": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
-        "displayName": "Slots",
-        "self": true
+      {
+        "slotId": "slot-id-123-abc-0-1",
+        "start": {
+          "timestamp": 1540881000000
+        },
+        "end": {
+          "timestamp": 1540882800000
+        },
+        "status": 0
       },
-      "start": {
-        "dateTime": "2018-10-25T11:45:00+03:00"
+      {
+        "slotId": "slot-id-123-abc-0-2",
+        "start": {
+          "timestamp": 1540882800000
+        },
+        "end": {
+          "timestamp": 1540884600000
+        },
+        "status": 0
       },
-      "end": {
-        "dateTime": "2018-10-25T13:15:00+03:00"
+      {
+        "slotId": "slot-id-123-abc-0-3",
+        "start": {
+          "timestamp": 1540884600000
+        },
+        "end": {
+          "timestamp": 1540886400000
+        },
+        "status": 0
       },
-      "iCalUID": "sc0fhulamko8qfa2jleag97i2k@google.com",
-      "sequence": 0,
-      "reminders": {
-        "useDefault": true
+      {
+        "slotId": "slot-id-123-abc-0-4",
+        "start": {
+          "timestamp": 1540886400000
+        },
+        "end": {
+          "timestamp": 1540888200000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-0-5",
+        "start": {
+          "timestamp": 1540888200000
+        },
+        "end": {
+          "timestamp": 1540890000000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-0-6",
+        "start": {
+          "timestamp": 1540890000000
+        },
+        "end": {
+          "timestamp": 1540891800000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-0-7",
+        "start": {
+          "timestamp": 1540891800000
+        },
+        "end": {
+          "timestamp": 1540893600000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-1-0",
+        "start": {
+          "timestamp": 1540900800000
+        },
+        "end": {
+          "timestamp": 1540902600000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-1-1",
+        "start": {
+          "timestamp": 1540902600000
+        },
+        "end": {
+          "timestamp": 1540904400000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-1-2",
+        "start": {
+          "timestamp": 1540904400000
+        },
+        "end": {
+          "timestamp": 1540906200000
+        },
+        "status": 0
+      },
+      {
+        "slotId": "slot-id-123-abc-1-3",
+        "start": {
+          "timestamp": 1540906200000
+        },
+        "end": {
+          "timestamp": 1540908000000
+        },
+        "status": 0
       }
-    }
-  ],
+    ]
+  },
   "bookings": [
     {
       "id": 1,

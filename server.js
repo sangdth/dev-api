@@ -33,7 +33,7 @@ server.get('/slots', (req, res) => {
   const min = req.query.from;
   const max = req.query.to;
   let slots = [];
-  console.log('tyepadsf', typeof min);
+
   if (min && max) {
     slots = db.get('events.slots')
       .filter(slot => {
@@ -49,7 +49,7 @@ server.get('/slots', (req, res) => {
       .value();
   } else {
     // do more if check
-    slots = db.get('events.slots').value();
+    slots = db.get('slots').value();
   }
 
   res.status(200).send({
@@ -98,65 +98,148 @@ server.post('/notifications', (req, res) => {
 
   const calendarName = getKeyByValue(cMap, calendarId);
 
+  if (req.query.calendar === cMap[calendarName]) {
+    console.log(`### incoming signal from ${calendarName}`);
+    // console.log('channel ID: ', req.headers['x-goog-channel-id']);
+    // console.log('resource ID:', req.headers['x-goog-resource-id']);
+    // console.log('token is', req.headers['x-goog-channel-token']);
+  }
+
   gcEvents.queryEventsByCalendarId(calendarId, auth, (events) => {
-    console.log('Receive notification, get data from calendar named: ', calendarName);
+    console.log('Got data from calendar named: ', calendarName);
     db.set(`events[${calendarName}]`, events).write();
   });
 
+
+  // try to calculate the slot ranges
   const allEvents = db.get('events').value();
 
   let typeOneSlots = [];
   let typeTwoSlots = [];
 
   for (let i = 0; i < allEvents['primary'].length; i++) {
-    let min = toMilli(allEvents['primary'][i].start.dateTime);
-    let max = toMilli(allEvents['primary'][i].end.dateTime);
+    const minPrimary = toMilli(allEvents['primary'][i].start.dateTime);
+    const maxPrimary = toMilli(allEvents['primary'][i].end.dateTime);
+    let min = minPrimary;
+    let max = maxPrimary;
+    // console.log('start min, start max', min, max);
 
     for (let j = 0; j < allEvents['resources'].length; j++) {
       const minResource = toMilli(allEvents['resources'][j].start.dateTime);
       const maxResource = toMilli(allEvents['resources'][j].end.dateTime);
+      // console.log('minResource, maxResource', minResource, maxResource);
 
-      if (_.inRange(minResource, min, max)) {
+      if (_.inRange(minResource, minPrimary, maxPrimary)) {
         min = minResource;
+      } else if (minResource < minPrimary) {
+        min = minPrimary;
+      } else {
+        min = 0;
       }
-      if (_.inRange(maxResource, min, max)) {
+
+      if (_.inRange(maxResource, minPrimary, maxPrimary)) {
         max = maxResource;
+      } else if (maxResource > maxPrimary) {
+        max = maxPrimary;
+      } else {
+        max = 0;
       }
 
       for (let m = 0; m < allEvents['typeOne'].length; m++) {
-        const minTypeOne = toMilli(allEvents['typeOne'][j].start.dateTime);
-        const maxTypeOne = toMilli(allEvents['typeOne'][j].end.dateTime);
+        const minTypeOne = toMilli(allEvents['typeOne'][m].start.dateTime);
+        const maxTypeOne = toMilli(allEvents['typeOne'][m].end.dateTime);
+        // console.log('minTypeOne', 'maxTypeOne', minTypeOne, maxTypeOne);
 
-        if (_.inRange(minTypeOne, min, max)) {
+        if (_.inRange(minTypeOne, minResource, maxResource)) {
           min = minTypeOne;
+        } else if (minTypeOne < minResource) {
+          min = minResource;
+        } else {
+          min = 0;
         }
-        if (_.inRange(maxTypeOne, min, max)) {
+
+        if (_.inRange(maxTypeOne, minResource, maxResource)) {
           max = maxTypeOne;
+        } else if (maxTypeOne > maxResource) {
+          max = maxResource;
+        } else {
+          max =0;
         }
 
-        typeOneSlots.push({min, max});
+        if (min !== 0 && max !== 0) {
+          typeOneSlots.push({ min, max });
+        }
       }
 
-      /*
+
       for (let n = 0; n < allEvents['typeTwo'].length; n++) {
-        if (min < toMilli(allEvents['typeTwo'][n].start.dateTime)) {
-          min = toMilli(allEvents['typeTwo'][n].start.dateTime);
+        const minTypeTwo = toMilli(allEvents['typeTwo'][n].start.dateTime);
+        const maxTypeTwo = toMilli(allEvents['typeTwo'][n].end.dateTime);
+
+        if (_.inRange(minTypeTwo, minResource, maxResource)) {
+          min = minTypeTwo;
+        } else if (minTypeTwo < minResource) {
+          min = minResource;
+        } else {
+          min = 0;
         }
-        if (max > toMilli(allEvents['typeTwo'][n].end.dateTime)) {
-          max = toMilli(allEvents['typeTwo'][n].end.dateTime);
+
+        if (_.inRange(maxTypeTwo, minResource, maxResource)) {
+          max = maxTypeTwo;
+        } else if (maxTypeTwo > maxResource) {
+          max = maxResource;
+        } else {
+          max =0;
         }
-        typeTwoSlots = addToSlotsArray(typeTwoSlots, { min, max });
+
+        if (min !== 0 && max !== 0) {
+          typeTwoSlots.push({min, max});
+        }
       }
-      */
+
     }
   }
-  console.log('typeOne range: ', typeOneSlots);
 
-  if (req.query.calendar === cMap[calendarName]) {
-    console.log(`### incoming signal from ${calendarName}`);
-    // console.log('channel ID: ', req.headers['x-goog-channel-id']);
-    // console.log('resource ID:', req.headers['x-goog-resource-id']);
-    // console.log('token is', req.headers['x-goog-channel-token']);
+  // console.log(typeOneSlots);
+  // get slots from our db first
+
+  for (let i = 0; i < typeOneSlots.length; i++) {
+    const existSlots = db.get('slots.typeOne')
+      .filter(slot => {
+        if (typeOneSlots[i].min <= slot.start.timestamp &&
+            typeOneSlots[i].max >= slot.end.timestamp) {
+          return slot;
+        }
+      })
+      .value();
+
+    // if found existSlots, try to sync data with slots on GC.
+
+    // if existSlots is empty, try to create new slots
+    if (existSlots.length === 0) {
+      const duration = typeOneSlots[i].max - typeOneSlots[i].min;
+      const nSlots = Math.floor(duration / 1800000); // 30 minsa
+      console.log('number of slot', nSlots);
+
+      for (let j = 0; j < nSlots; j++) {
+        const slotItem = {
+          slotId: `slot-id-123-abc-${i}-${j}`,
+          start: { timestamp: parseInt(typeOneSlots[i].min, 10) + j * 1800000 },
+          end: { timestamp: parseInt(typeOneSlots[i].min, 10) + (j + 1) * 1800000 },
+          status: 0,
+          calendar: {
+            type: 'google-calendar',
+            calendarId: cMap['typeOne'],
+          },
+        };
+
+        db.get('slots.typeOne')
+          .push(slotItem)
+          .write();
+      }
+    } else {
+      console.log('found exist slot, need to sync', existSlots.length);
+    }
   }
 
 });
@@ -196,7 +279,7 @@ function getKeyByValue(object, value) {
 }
 
 function toMilli(date) {
-  return parseInt(moment(date).format('x'), 10);
+  return moment(date).format('x');
 }
 
 /*
