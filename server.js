@@ -32,24 +32,27 @@ const cMap = db.get('calendarMapping').value();
 server.get('/slots', (req, res) => {
   const min = req.query.from;
   const max = req.query.to;
+  const typeName = req.query.type;
+
   let slots = [];
 
   if (min && max) {
-    slots = db.get('events.slots')
+    slots = db.get(`slots[${typeName}]`)
       .filter(slot => {
         // Google events use RFC 3339 time format
         // we need to convert back to milliseconds to compare
-        const slotStart = moment(slot.start.dateTime).format('x');
-        const slotEnd = moment(slot.end.dateTime).format('x');
+        // const slotStart = moment(slot.start.dateTime).format('x');
+        // const slotEnd = moment(slot.end.dateTime).format('x');
 
-        if (min < slotStart && slotEnd < max) {
+        // if (min < slotStart && slotEnd < max) {
+        if (min < slot.start.timestamp && slot.end.timestamp < max) {
           return slot;
         }
       })
       .value();
   } else {
     // do more if check
-    slots = db.get('slots').value();
+    slots = db.get(`slots[${typeName}]`).value();
   }
 
   res.status(200).send({
@@ -166,7 +169,7 @@ server.post('/notifications', (req, res) => {
           max =0;
         }
 
-        if (min !== 0 && max !== 0) {
+        if (min !== 0 && max !== 0 && max - min >= 1800000) {
           typeOneSlots.push({ min, max });
         }
       }
@@ -192,8 +195,8 @@ server.post('/notifications', (req, res) => {
           max =0;
         }
 
-        if (min !== 0 && max !== 0) {
-          typeTwoSlots.push({min, max});
+        if (min !== 0 && max !== 0 && max - min >= 3600000) {
+          typeTwoSlots.push({ min, max });
         }
       }
 
@@ -213,35 +216,39 @@ server.post('/notifications', (req, res) => {
       })
       .value();
 
-    // if found existSlots, try to sync data with slots on GC.
+    // if existSlots is not empty, try to delete free slots
+    if (existSlots.length !== 0) {
+      db.get('slots.typeOne')
+        .remove({ status: 0 })
+        .write();
+    }
 
-    // if existSlots is empty, try to create new slots
-    if (existSlots.length === 0) {
-      const duration = typeOneSlots[i].max - typeOneSlots[i].min;
-      const nSlots = Math.floor(duration / 1800000); // 30 minsa
-      console.log('number of slot', nSlots);
+    // then create new slots
+    const duration = typeOneSlots[i].max - typeOneSlots[i].min;
+    const nSlots = Math.floor(duration / 1800000); // 30 mins
+    console.log('number of slot', nSlots);
 
-      for (let j = 0; j < nSlots; j++) {
-        const slotItem = {
-          slotId: `slot-id-123-abc-${i}-${j}`,
-          start: { timestamp: parseInt(typeOneSlots[i].min, 10) + j * 1800000 },
-          end: { timestamp: parseInt(typeOneSlots[i].min, 10) + (j + 1) * 1800000 },
-          status: 0,
-          calendar: {
-            type: 'google-calendar',
-            calendarId: cMap['typeOne'],
-          },
-        };
+    for (let j = 0; j < nSlots; j++) {
+      const startTime = parseInt(typeOneSlots[i].min, 10) + j * 1800000;
+      const endTime = parseInt(typeOneSlots[i].min, 10) + (j + 1) * 1800000;
 
-        db.get('slots.typeOne')
-          .push(slotItem)
-          .write();
-      }
-    } else {
-      console.log('found exist slot, need to sync', existSlots.length);
+      const slotItem = {
+        summary: moment(startTime).format('HH:mm') + ' - ' + moment(endTime).format('HH:mm'),
+        slotId: `slot-id-123-abc-${i}-${j}`,
+        start: { timestamp: startTime, },
+        end: { timestamp: endTime, },
+        status: 0, // 0 is free, 1 is booked.
+        calendar: {
+          type: 'google-calendar',
+          calendarId: cMap['typeOne'],
+        },
+      };
+
+      db.get('slots.typeOne')
+        .push(slotItem)
+        .write();
     }
   }
-
 });
 
 /**

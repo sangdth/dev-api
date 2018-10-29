@@ -27,24 +27,6 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540551500999000\"",
-      "id": "cognio.co_vk2sp6k6pkjru084maob8mmqeg@group.calendar.google.com",
-      "summary": "Wellbeing Blood Test (30mins)",
-      "timeZone": "Europe/Helsinki",
-      "colorId": "22",
-      "backgroundColor": "#f691b2",
-      "foregroundColor": "#000000",
-      "selected": true,
-      "accessRole": "owner",
-      "defaultReminders": [],
-      "conferenceProperties": {
-        "allowedConferenceSolutionTypes": [
-          "hangoutsMeet"
-        ]
-      }
-    },
-    {
-      "kind": "calendar#calendarListEntry",
       "etag": "\"1540551262957000\"",
       "id": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com",
       "summary": "Pickup before 12 (30mins)",
@@ -107,12 +89,12 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540551680146000\"",
-      "id": "cognio.co_ncsevgpt1jh8fsv1ge5n15gumo@group.calendar.google.com",
-      "summary": "Performance Blood Test",
+      "etag": "\"1540811727477000\"",
+      "id": "cognio.co_5us9a2sv9m8qb4r52a4bt6f650@group.calendar.google.com",
+      "summary": "Booked slots typeTwo",
       "timeZone": "Europe/Helsinki",
-      "colorId": "21",
-      "backgroundColor": "#cca6ac",
+      "colorId": "5",
+      "backgroundColor": "#ff7537",
       "foregroundColor": "#000000",
       "selected": true,
       "accessRole": "owner",
@@ -125,13 +107,13 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540361246738000\"",
+      "etag": "\"1540811309010000\"",
       "id": "cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com",
-      "summary": "Slots",
-      "description": "Show free/booked slots",
+      "summary": "Booked slots typeOne",
+      "description": "Show booked slots",
       "timeZone": "Europe/Helsinki",
-      "colorId": "13",
-      "backgroundColor": "#92e1c0",
+      "colorId": "14",
+      "backgroundColor": "#9fe1e7",
       "foregroundColor": "#000000",
       "selected": true,
       "accessRole": "owner",
@@ -144,13 +126,13 @@
     },
     {
       "kind": "calendar#calendarListEntry",
-      "etag": "\"1540380198116000\"",
+      "etag": "\"1540811302894000\"",
       "id": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
       "summary": "Resources",
       "description": "Car",
       "timeZone": "Europe/Helsinki",
-      "colorId": "1",
-      "backgroundColor": "#ac725e",
+      "colorId": "24",
+      "backgroundColor": "#a47ae2",
       "foregroundColor": "#000000",
       "selected": true,
       "accessRole": "owner",
@@ -257,6 +239,40 @@
         "reminders": {
           "useDefault": true
         }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3081626759960000\"",
+        "id": "4tihrsn339ivi2vcef1mt4g6c1",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=NHRpaHJzbjMzOWl2aTJ2Y2VmMW10NGc2YzEgc2FuZy5kYW5nQHBvbGt1Lmlv",
+        "created": "2018-10-29T11:40:11.000Z",
+        "updated": "2018-10-29T11:42:59.980Z",
+        "summary": "Worker 2",
+        "creator": {
+          "email": "sang.dang@polku.io",
+          "self": true
+        },
+        "organizer": {
+          "email": "sang.dang@polku.io",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-31T08:15:00+02:00"
+        },
+        "end": {
+          "dateTime": "2018-10-31T14:00:00+02:00"
+        },
+        "iCalUID": "4tihrsn339ivi2vcef1mt4g6c1@google.com",
+        "sequence": 3,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": true
+        }
       }
     ],
     "resources": [
@@ -327,17 +343,51 @@
         "reminders": {
           "useDefault": false
         }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3081626661690000\"",
+        "id": "3euj16ghgld6bee7chogdd22n4",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=M2V1ajE2Z2hnbGQ2YmVlN2Nob2dkZDIybjQgY29nbmlvLmNvXzY2MmFhcmVnYjNwMzk4NG1vbjZ1YmVnb29zQGc",
+        "created": "2018-10-29T11:41:17.000Z",
+        "updated": "2018-10-29T11:43:04.399Z",
+        "summary": "Car4",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_662aaregb3p3984mon6ubegoos@group.calendar.google.com",
+          "displayName": "Resources",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-31T08:45:00+02:00"
+        },
+        "end": {
+          "dateTime": "2018-10-31T13:45:00+02:00"
+        },
+        "iCalUID": "3euj16ghgld6bee7chogdd22n4@google.com",
+        "sequence": 2,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
       }
     ],
     "slots": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081348766844000\"",
+        "etag": "\"3081364846123000\"",
         "id": "6r69p21npcleanukia64omhamh",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NnI2OXAyMW5wY2xlYW51a2lhNjRvbWhhbWggY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-26T10:52:27.000Z",
-        "updated": "2018-10-29T07:10:11.213Z",
+        "updated": "2018-10-29T11:38:10.492Z",
         "summary": "type1 slot1",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -348,25 +398,25 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T08:30:00+02:00"
+          "dateTime": "2018-11-03T08:45:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T09:45:00+02:00"
+          "dateTime": "2018-11-03T10:00:00+02:00"
         },
         "iCalUID": "6r69p21npcleanukia64omhamh@google.com",
-        "sequence": 4,
+        "sequence": 7,
         "reminders": {
           "useDefault": false
         }
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081348528081000\"",
+        "etag": "\"3081364609394000\"",
         "id": "0rolsf36fqr0r82v9la33a2p9i",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=MHJvbHNmMzZmcXIwcjgydjlsYTMzYTJwOWkgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-26T10:58:37.000Z",
-        "updated": "2018-10-29T07:10:10.152Z",
+        "updated": "2018-10-29T11:38:11.465Z",
         "summary": "asdfasdf",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -377,13 +427,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T10:15:00+02:00"
+          "dateTime": "2018-11-03T10:45:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T11:45:00+02:00"
+          "dateTime": "2018-11-03T12:15:00+02:00"
         },
         "iCalUID": "0rolsf36fqr0r82v9la33a2p9i@google.com",
-        "sequence": 15,
+        "sequence": 17,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -395,12 +445,12 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081101619660000\"",
+        "etag": "\"3081109268298000\"",
         "id": "0c4taiqskk1unkangbt5746uce",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=MGM0dGFpcXNrazF1bmthbmdidDU3NDZ1Y2UgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-23T12:02:55.000Z",
-        "updated": "2018-10-29T09:30:43.867Z",
+        "updated": "2018-10-29T11:38:12.505Z",
         "summary": "Viet pick Arto up by Lamborghini Gallardor",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -411,13 +461,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T13:00:00+02:00"
+          "dateTime": "2018-11-03T12:45:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T15:00:00+02:00"
+          "dateTime": "2018-11-03T14:45:00+02:00"
         },
         "iCalUID": "0c4taiqskk1unkangbt5746uce@google.com",
-        "sequence": 18,
+        "sequence": 19,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -429,12 +479,12 @@
       },
       {
         "kind": "calendar#event",
-        "etag": "\"3081339920790000\"",
+        "etag": "\"3081347709702000\"",
         "id": "4teu1in058qfrulilatfg5vodt",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=NHRldTFpbjA1OHFmcnVsaWxhdGZnNXZvZHQgY29nbmlvLmNvX2wzaXRpOTIyOGhjbHQ3ZWozZDNxNTQ2a244QGc",
         "created": "2018-10-26T06:16:55.000Z",
-        "updated": "2018-10-29T09:28:25.124Z",
+        "updated": "2018-10-29T11:38:14.036Z",
         "summary": "Test 222222",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -445,13 +495,13 @@
           "self": true
         },
         "start": {
-          "dateTime": "2018-11-01T16:15:00+02:00"
+          "dateTime": "2018-11-03T16:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-11-01T17:30:00+02:00"
+          "dateTime": "2018-11-03T17:15:00+02:00"
         },
         "iCalUID": "4teu1in058qfrulilatfg5vodt@google.com",
-        "sequence": 18,
+        "sequence": 19,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -499,12 +549,12 @@
     "typeOne": [
       {
         "kind": "calendar#event",
-        "etag": "\"3081354214231000\"",
+        "etag": "\"3081361390616000\"",
         "id": "6lumgpar1v3kbfgo7526mu6ne9",
         "status": "confirmed",
         "htmlLink": "https://www.google.com/calendar/event?eid=Nmx1bWdwYXIxdjNrYmZnbzc1MjZtdTZuZTkgY29nbmlvLmNvX3R2MGxwZGd2YWs0dTFyMWE4ZnEzdjk3djNrQGc",
         "created": "2018-10-26T10:05:54.000Z",
-        "updated": "2018-10-29T09:37:39.876Z",
+        "updated": "2018-10-29T11:37:16.261Z",
         "summary": "Before 12",
         "creator": {
           "email": "sang.dang@polku.io"
@@ -518,10 +568,44 @@
           "dateTime": "2018-10-30T08:00:00+02:00"
         },
         "end": {
-          "dateTime": "2018-10-30T19:45:00+02:00"
+          "dateTime": "2018-10-30T13:30:00+02:00"
         },
         "iCalUID": "6lumgpar1v3kbfgo7526mu6ne9@google.com",
         "sequence": 12,
+        "extendedProperties": {
+          "private": {
+            "everyoneDeclinedDismissed": "-1"
+          }
+        },
+        "reminders": {
+          "useDefault": false
+        }
+      },
+      {
+        "kind": "calendar#event",
+        "etag": "\"3081626654015000\"",
+        "id": "34tjnp8tvesq74rqf6q6s4k7op",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=MzR0am5wOHR2ZXNxNzRycWY2cTZzNGs3b3AgY29nbmlvLmNvX3R2MGxwZGd2YWs0dTFyMWE4ZnEzdjk3djNrQGc",
+        "created": "2018-10-29T11:41:01.000Z",
+        "updated": "2018-10-29T11:43:12.745Z",
+        "summary": "Type 1",
+        "creator": {
+          "email": "sang.dang@polku.io"
+        },
+        "organizer": {
+          "email": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com",
+          "displayName": "Pickup before 12 (30mins)",
+          "self": true
+        },
+        "start": {
+          "dateTime": "2018-10-31T10:00:00+02:00"
+        },
+        "end": {
+          "dateTime": "2018-10-31T14:00:00+02:00"
+        },
+        "iCalUID": "34tjnp8tvesq74rqf6q6s4k7op@google.com",
+        "sequence": 3,
         "extendedProperties": {
           "private": {
             "everyoneDeclinedDismissed": "-1"
@@ -572,124 +656,229 @@
   "slots": {
     "typeOne": [
       {
-        "slotId": "slot-id-123-abc-0-0",
+        "summary": "08:00 - 08:30",
+        "slotId": "slot-id-123-abc-2-0",
         "start": {
           "timestamp": 1540879200000
         },
         "end": {
           "timestamp": 1540881000000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-1",
+        "summary": "08:30 - 09:00",
+        "slotId": "slot-id-123-abc-2-1",
         "start": {
           "timestamp": 1540881000000
         },
         "end": {
           "timestamp": 1540882800000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-2",
+        "summary": "09:00 - 09:30",
+        "slotId": "slot-id-123-abc-2-2",
         "start": {
           "timestamp": 1540882800000
         },
         "end": {
           "timestamp": 1540884600000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-3",
+        "summary": "09:30 - 10:00",
+        "slotId": "slot-id-123-abc-2-3",
         "start": {
           "timestamp": 1540884600000
         },
         "end": {
           "timestamp": 1540886400000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-4",
+        "summary": "10:00 - 10:30",
+        "slotId": "slot-id-123-abc-2-4",
         "start": {
           "timestamp": 1540886400000
         },
         "end": {
           "timestamp": 1540888200000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-5",
+        "summary": "10:30 - 11:00",
+        "slotId": "slot-id-123-abc-2-5",
         "start": {
           "timestamp": 1540888200000
         },
         "end": {
           "timestamp": 1540890000000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-6",
+        "summary": "11:00 - 11:30",
+        "slotId": "slot-id-123-abc-2-6",
         "start": {
           "timestamp": 1540890000000
         },
         "end": {
           "timestamp": 1540891800000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-0-7",
+        "summary": "11:30 - 12:00",
+        "slotId": "slot-id-123-abc-2-7",
         "start": {
           "timestamp": 1540891800000
         },
         "end": {
           "timestamp": 1540893600000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-1-0",
+        "summary": "10:00 - 10:30",
+        "slotId": "slot-id-123-abc-3-0",
         "start": {
-          "timestamp": 1540900800000
+          "timestamp": 1540972800000
         },
         "end": {
-          "timestamp": 1540902600000
+          "timestamp": 1540974600000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-1-1",
+        "summary": "10:30 - 11:00",
+        "slotId": "slot-id-123-abc-3-1",
         "start": {
-          "timestamp": 1540902600000
+          "timestamp": 1540974600000
         },
         "end": {
-          "timestamp": 1540904400000
+          "timestamp": 1540976400000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-1-2",
+        "summary": "11:00 - 11:30",
+        "slotId": "slot-id-123-abc-3-2",
         "start": {
-          "timestamp": 1540904400000
+          "timestamp": 1540976400000
         },
         "end": {
-          "timestamp": 1540906200000
+          "timestamp": 1540978200000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       },
       {
-        "slotId": "slot-id-123-abc-1-3",
+        "summary": "11:30 - 12:00",
+        "slotId": "slot-id-123-abc-3-3",
         "start": {
-          "timestamp": 1540906200000
+          "timestamp": 1540978200000
         },
         "end": {
-          "timestamp": 1540908000000
+          "timestamp": 1540980000000
         },
-        "status": 0
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
+      },
+      {
+        "summary": "12:00 - 12:30",
+        "slotId": "slot-id-123-abc-3-4",
+        "start": {
+          "timestamp": 1540980000000
+        },
+        "end": {
+          "timestamp": 1540981800000
+        },
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
+      },
+      {
+        "summary": "12:30 - 13:00",
+        "slotId": "slot-id-123-abc-3-5",
+        "start": {
+          "timestamp": 1540981800000
+        },
+        "end": {
+          "timestamp": 1540983600000
+        },
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
+      },
+      {
+        "summary": "13:00 - 13:30",
+        "slotId": "slot-id-123-abc-3-6",
+        "start": {
+          "timestamp": 1540983600000
+        },
+        "end": {
+          "timestamp": 1540985400000
+        },
+        "status": 0,
+        "calendar": {
+          "type": "google-calendar",
+          "calendarId": "cognio.co_tv0lpdgvak4u1r1a8fq3v97v3k@group.calendar.google.com"
+        }
       }
     ]
   },
