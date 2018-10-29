@@ -7,6 +7,7 @@ const gcCalendars = require('./gc-calendars.js');
 const gcEvents = require('./gc-events.js');
 const Zet = require('zet');
 const moment = require('moment');
+const _ = require('lodash');
 
 const db = router.db;
 
@@ -112,24 +113,31 @@ server.post('/notifications', (req, res) => {
     let max = toMilli(allEvents['primary'][i].end.dateTime);
 
     for (let j = 0; j < allEvents['resources'].length; j++) {
-      if (min < toMilli(allEvents['resources'][j].start.dateTime)) {
-        min = toMilli(allEvents['resources'][j].start.dateTime);
+      const minResource = toMilli(allEvents['resources'][j].start.dateTime);
+      const maxResource = toMilli(allEvents['resources'][j].end.dateTime);
+
+      if (_.inRange(minResource, min, max)) {
+        min = minResource;
       }
-      if (max > toMilli(allEvents['resources'][j].end.dateTime)) {
-        max = toMilli(allEvents['resources'][j].end.dateTime);
+      if (_.inRange(maxResource, min, max)) {
+        max = maxResource;
       }
 
       for (let m = 0; m < allEvents['typeOne'].length; m++) {
-        if (min < toMilli(allEvents['typeOne'][m].start.dateTime)) {
-          min = toMilli(allEvents['typeOne'][m].start.dateTime);
+        const minTypeOne = toMilli(allEvents['typeOne'][j].start.dateTime);
+        const maxTypeOne = toMilli(allEvents['typeOne'][j].end.dateTime);
+
+        if (_.inRange(minTypeOne, min, max)) {
+          min = minTypeOne;
         }
-        if (max > toMilli(allEvents['typeOne'][m].end.dateTime)) {
-          max = toMilli(allEvents['typeOne'][m].end.dateTime);
+        if (_.inRange(maxTypeOne, min, max)) {
+          max = maxTypeOne;
         }
-        console.log('typeof min', typeof min);
-        typeOneSlots = addToSlotsArray(typeOneSlots, { min, max });
+
+        typeOneSlots.push({min, max});
       }
 
+      /*
       for (let n = 0; n < allEvents['typeTwo'].length; n++) {
         if (min < toMilli(allEvents['typeTwo'][n].start.dateTime)) {
           min = toMilli(allEvents['typeTwo'][n].start.dateTime);
@@ -139,6 +147,7 @@ server.post('/notifications', (req, res) => {
         }
         typeTwoSlots = addToSlotsArray(typeTwoSlots, { min, max });
       }
+      */
     }
   }
   console.log('typeOne range: ', typeOneSlots);
@@ -188,20 +197,6 @@ function getKeyByValue(object, value) {
 
 function toMilli(date) {
   return parseInt(moment(date).format('x'), 10);
-}
-
-function addToSlotsArray(slotsArray, range) {
-  if (slotsArray.length === 0) slotsArray.push(range);
-  for (let i = 0; i < slotsArray.length; i++) {
-    if (range.max >= slotsArray[i].max && range.min <= slotsArray[i].max) {
-      slotsArray[i].max = range.max;
-    }
-    if (slotsArray[i+1] && range.max > slotsArray[i+1].min) {
-      slotsArray[i].min = range.min;
-    }
-    slotsArray.splice(i, 0, range);
-  }
-  return slotsArray;
 }
 
 /*
