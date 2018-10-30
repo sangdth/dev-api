@@ -9,7 +9,8 @@ let slotEvents = [];
 
 module.exports.queryEventsByCalendarId = (calendarId, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
-  const  beginOfDay = moment().startOf('day').format();
+  const  beginOfDay = moment().subtract(1, 'days').startOf('day').format();
+  console.log('beginOfDay', moment(beginOfDay).format('dddd HH:mm DD.MM.YYYY'));
 
   calendar.events.list({
     calendarId,

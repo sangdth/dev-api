@@ -167,20 +167,16 @@ server.post('/notifications', (req, res) => {
       const eventIdResources = allEvents['resources'][j].id;
       // console.log('minResource, maxResource', minResource, maxResource);
 
-      if (_.inRange(minResource, minPrimary, maxPrimary)) {
+      if (_.inRange(minResource, min, max)) {
         min = minResource;
-      } else if (minResource < minPrimary) {
-        min = minPrimary;
+      } else if (minResource < min) {
+        min = min;
       } else {
         min = 0;
       }
 
-      if (_.inRange(maxResource, minPrimary, maxPrimary)) {
+      if (_.inRange(maxResource, min, max)) {
         max = maxResource;
-      } else if (maxResource > maxPrimary) {
-        max = maxPrimary;
-      } else {
-        max = 0;
       }
 
       for (let m = 0; m < allEvents['typeOne'].length; m++) {
@@ -188,20 +184,16 @@ server.post('/notifications', (req, res) => {
         const maxTypeOne = toMilli(allEvents['typeOne'][m].end.dateTime);
         // console.log('minTypeOne', 'maxTypeOne', minTypeOne, maxTypeOne);
 
-        if (_.inRange(minTypeOne, minResource, maxResource)) {
+        if ((min !== 0 && max !==0) && _.inRange(minTypeOne, min, max)) {
           min = minTypeOne;
-        } else if (minTypeOne < minResource) {
-          min = minResource;
+        } else if (minTypeOne < min) {
+          min = min;
         } else {
           min = 0;
         }
 
-        if (_.inRange(maxTypeOne, minResource, maxResource)) {
+        if ((min !== 0 && max !==0) && _.inRange(maxTypeOne, min, max)) {
           max = maxTypeOne;
-        } else if (maxTypeOne > maxResource) {
-          max = maxResource;
-        } else {
-          max =0;
         }
 
         if (min !== 0 && max !== 0 && max - min >= 1800000) {
@@ -214,7 +206,7 @@ server.post('/notifications', (req, res) => {
         }
       }
 
-
+      /*
       for (let n = 0; n < allEvents['typeTwo'].length; n++) {
         const minTypeTwo = toMilli(allEvents['typeTwo'][n].start.dateTime);
         const maxTypeTwo = toMilli(allEvents['typeTwo'][n].end.dateTime);
@@ -229,7 +221,7 @@ server.post('/notifications', (req, res) => {
 
         if (_.inRange(maxTypeTwo, minResource, maxResource)) {
           max = maxTypeTwo;
-        } else if (maxTypeTwo > maxResource) {
+        } else if (maxTypeTwo >= maxResource) {
           max = maxResource;
         } else {
           max =0;
@@ -239,6 +231,7 @@ server.post('/notifications', (req, res) => {
           typeTwoSlots.push({ min, max });
         }
       }
+      */
 
     }
   }
