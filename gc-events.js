@@ -1,4 +1,5 @@
 const { google } = require('googleapis');
+const moment = require('moment');
 const slotCalendarId = 'cognio.co_l3iti9228hclt7ej3d3q546kn8@group.calendar.google.com';
 
 let resourceId = '';
@@ -37,10 +38,12 @@ function listEventsByCalendar(calendarId, auth) {
 
 module.exports.queryEventsByCalendarId = (calendarId, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
+  const  beginOfDay = moment().startOf('day').format();
 
+  console.log(beginOfDay);
   calendar.events.list({
     calendarId,
-    timeMin: (new Date()).toISOString(),
+    timeMin: beginOfDay,
     maxResults: 1000,
     singleEvents: true,
     orderBy: 'startTime',

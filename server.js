@@ -8,6 +8,7 @@ const gcEvents = require('./gc-events.js');
 const Zet = require('zet');
 const moment = require('moment');
 const _ = require('lodash');
+const shortid = require('shortid')
 
 const db = router.db;
 
@@ -27,6 +28,28 @@ gcAuth.init((result) => {
 });
 
 const cMap = db.get('calendarMapping').value();
+
+// create new booking
+
+server.post('/bookings', (req, res) => {
+  const bookingItem = {
+    id: `booking-id-${shortid.generate()}`,
+    start: { timestamp: req.body.slot.start.timestamp, },
+    end: { timestamp: req.body.slot.end.timestamp, },
+    status: 'confirmed', // confirmed, overdue, cancelled
+    slot: req.body.slot,
+    customer: req.body.customer,
+  };
+
+  db.get('bookings')
+    .push(bookingItem)
+    .write();
+
+  res.status(200).send({
+    success: true,
+    message: db.get('bookings').find({ id: bookingItem.id }).value(),
+  });
+});
 
 // query slots events
 server.get('/slots', (req, res) => {
@@ -123,13 +146,19 @@ server.post('/notifications', (req, res) => {
   for (let i = 0; i < allEvents['primary'].length; i++) {
     const minPrimary = toMilli(allEvents['primary'][i].start.dateTime);
     const maxPrimary = toMilli(allEvents['primary'][i].end.dateTime);
+    const summaryPrimary = allEvents['primary'][i].summary;
+    const eventIdPrimary = allEvents['primary'][i].id;
+
     let min = minPrimary;
     let max = maxPrimary;
+
     // console.log('start min, start max', min, max);
 
     for (let j = 0; j < allEvents['resources'].length; j++) {
       const minResource = toMilli(allEvents['resources'][j].start.dateTime);
       const maxResource = toMilli(allEvents['resources'][j].end.dateTime);
+      const summaryResources = allEvents['resources'][j].summary;
+      const eventIdResources = allEvents['resources'][j].id;
       // console.log('minResource, maxResource', minResource, maxResource);
 
       if (_.inRange(minResource, minPrimary, maxPrimary)) {
@@ -170,7 +199,12 @@ server.post('/notifications', (req, res) => {
         }
 
         if (min !== 0 && max !== 0 && max - min >= 1800000) {
-          typeOneSlots.push({ min, max });
+          typeOneSlots.push({ 
+            min,
+            max,
+            primary: { summary: summaryPrimary, id: eventIdPrimary },
+            resources: { summary: summaryResources, id: eventIdResources },
+          });
         }
       }
 
@@ -226,7 +260,7 @@ server.post('/notifications', (req, res) => {
     // then create new slots
     const duration = typeOneSlots[i].max - typeOneSlots[i].min;
     const nSlots = Math.floor(duration / 1800000); // 30 mins
-    console.log('number of slot', nSlots);
+    // console.log('number of slot', nSlots);
 
     for (let j = 0; j < nSlots; j++) {
       const startTime = parseInt(typeOneSlots[i].min, 10) + j * 1800000;
@@ -234,7 +268,7 @@ server.post('/notifications', (req, res) => {
 
       const slotItem = {
         summary: moment(startTime).format('HH:mm') + ' - ' + moment(endTime).format('HH:mm'),
-        id: `slot-id-123-abc-${i}-${j}`,
+        id: `slot-id-${shortid.generate()}`,
         start: { timestamp: startTime, },
         end: { timestamp: endTime, },
         status: 0, // 0 is free, 1 is booked.
@@ -242,6 +276,8 @@ server.post('/notifications', (req, res) => {
           type: 'google-calendar',
           calendarId: cMap['typeOne'],
         },
+        primary: typeOneSlots[i].primary,
+        resources: typeOneSlots[i].resources,
       };
 
       db.get('slots.typeOne')
