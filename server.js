@@ -45,6 +45,11 @@ server.post('/bookings', (req, res) => {
     .push(bookingItem)
     .write();
 
+  db.get('slots.typeOne')
+    .find({ id: req.body.slot.id })
+    .assign({ status: 1 })
+    .write();
+
   res.status(200).send({
     success: true,
     message: db.get('bookings').find({ id: bookingItem.id }).value(),
@@ -69,6 +74,8 @@ server.get('/slots', (req, res) => {
 
         // if (min < slotStart && slotEnd < max) {
         if (min < slot.start.timestamp && slot.end.timestamp < max) {
+          console.log('----- query min: ', moment.unix(min / 1000).format('dddd HH:mm DD.MM.YYYY'));
+          console.log(slot.summary);
           return slot;
         }
       })
@@ -139,7 +146,6 @@ server.post('/notifications', (req, res) => {
 
   // try to calculate the slot ranges
   const allEvents = db.get('events').value();
-
   let typeOneSlots = [];
   let typeTwoSlots = [];
 
@@ -199,7 +205,7 @@ server.post('/notifications', (req, res) => {
         }
 
         if (min !== 0 && max !== 0 && max - min >= 1800000) {
-          typeOneSlots.push({ 
+          typeOneSlots.push({
             min,
             max,
             primary: { summary: summaryPrimary, id: eventIdPrimary },
@@ -256,25 +262,32 @@ server.post('/notifications', (req, res) => {
         .remove({ status: 0 })
         .write();
     }
-
+    console.log('min: ', moment.unix(typeOneSlots[i].min / 1000).format('dddd HH:mm DD.MM.YYYY'));
     // then create new slots
     const duration = typeOneSlots[i].max - typeOneSlots[i].min;
     const nSlots = Math.floor(duration / 1800000); // 30 mins
-    // console.log('number of slot', nSlots);
+    console.log('number of slot', nSlots);
 
     for (let j = 0; j < nSlots; j++) {
+      // console.log(
+      //   `item ${j}`, moment.unix(typeOneSlots[i].min/1000).format('dddd HH:mm'),
+      //   moment.unix(typeOneSlots[i].max/1000).format('HH:mm DD.MM.YYYY')
+      // );
       const startTime = parseInt(typeOneSlots[i].min, 10) + j * 1800000;
       const endTime = parseInt(typeOneSlots[i].min, 10) + (j + 1) * 1800000;
-
+      // WHY THE FUCK THIS SHIT DOES NOT CREATE SLOT
+      // FOR TODAY ???????
+      // FUCK FUCK FUCK FUCK
       const slotItem = {
         summary: moment(startTime).format('HH:mm') + ' - ' + moment(endTime).format('HH:mm'),
         id: `slot-id-${shortid.generate()}`,
         start: { timestamp: startTime, },
         end: { timestamp: endTime, },
-        status: 0, // 0 is free, 1 is booked.
+        status: 0, // 0 is free, 1 is booked, 2 is locked
         calendar: {
           type: 'google-calendar',
           calendarId: cMap['typeOne'],
+          calendarName: 'typeOne',
         },
         primary: typeOneSlots[i].primary,
         resources: typeOneSlots[i].resources,

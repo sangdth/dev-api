@@ -7,40 +7,10 @@ let channelToken = '';
 let events = [];
 let slotEvents = [];
 
-/**
- * Lists the next 20 events on the user's primary calendar.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
-
-function listEventsByCalendar(calendarId, auth) {
-  const calendar = google.calendar({ version: 'v3', auth });
-
-  calendar.events.list({
-    calendarId,
-    timeMin: (new Date()).toISOString(),
-    maxResults: 20,
-    singleEvents: true,
-    orderBy: 'startTime',
-  }, (err, res) => {
-    // if (err) return console.log(`The API returned an error: ${err}`);
-    slotEvents = res.data.items;
-    if (slotEvents.length) {
-      console.log('Upcoming 20 events:');
-      slotEvents.map((event) => {
-        const start = event.start.dateTime || event.start.date;
-        console.log(`${start} - ${event.summary}`);
-      });
-    } else {
-      console.log('No upcoming events found.');
-    }
-  });
-}
-
 module.exports.queryEventsByCalendarId = (calendarId, auth, callback) => {
   const calendar = google.calendar({ version: 'v3', auth });
   const  beginOfDay = moment().startOf('day').format();
 
-  console.log(beginOfDay);
   calendar.events.list({
     calendarId,
     timeMin: beginOfDay,
@@ -68,7 +38,6 @@ module.exports.hook = (req, auth, callback) => {
   console.log('listen on channel ID: ', req.headers['x-goog-channel-id']);
   // console.log('and resource ID is:', req.headers['x-goog-resource-id']);
 
-  listEventsByCalendar(req.query.calendar, auth);
   callback(events);
   // listEvents(auth);
 };
